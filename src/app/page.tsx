@@ -1,6 +1,9 @@
+import { AuthProvider } from "@/auth/FirebaseContext";
 
 export default function Home() {
   return (
-    <div>hello world</div>
+    <AuthProvider>
+      <div>hello world</div>
+    </AuthProvider>
   )
 }
