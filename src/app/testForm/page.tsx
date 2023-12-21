@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const TestForm = () => {
     const [userName, setUserName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const handleSubmit = () => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
         console.log(userName);
         console.log(email);
         console.log(password);
