@@ -1,3 +1,4 @@
+'use client';
 import { FIREBASE_API } from "@/config-global";
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
