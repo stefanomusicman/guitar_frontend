@@ -1,10 +1,10 @@
 'use client';
 import { FIREBASE_API } from "@/config-global";
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import React, { createContext, useCallback, useMemo } from "react";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import React, { createContext, useCallback, useEffect, useMemo } from "react";
 import { FirebaseContextType } from "../../types/FirebaseTypes";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 // ------------------------------------------------------------------------
 
@@ -23,6 +23,26 @@ type AuthProviderProps = {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
+    const initialize = useCallback(() => {
+        try {
+            onAuthStateChanged(AUTH, async (user) => {
+                if (user) {
+                    const userRef = doc(DB, 'users', user.uid);
+
+                    const docSnap = await getDoc(userRef);
+
+                    const profile = docSnap.data();
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    useEffect(() => {
+        initialize();
+    }, [initialize]);
+
     // LOGIN
     const login = useCallback(async (email: string, password: string) => {
         await signInWithEmailAndPassword(AUTH, email, password);
@@ -41,17 +61,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }, []);
 
-    const memoizedValue = useMemo(
-        () => ({
-            login,
-            register,
-        }),
-        [
-            login,
-            register
-        ]
-    );
-
-    return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ login, register }}>{children}</AuthContext.Provider>
 
 }
