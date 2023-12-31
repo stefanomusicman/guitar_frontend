@@ -45,6 +45,28 @@ class GuitarAPI {
     }
 
     // SEARCH BY BRAND
+    static async searchByBrand<T>(brand: string): Promise<T> {
+        try {
+            const url = new URL(`${GuitarAPI.baseURL}/guitars/search-by-brand/${brand}`);
+
+            const response = await fetch(url.toString(), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data as T;
+        } catch (error: any) {
+            console.error('API Request Error:', error.message);
+            throw error;
+        }
+    }
 
     // SEARCH BY MODEL
 
