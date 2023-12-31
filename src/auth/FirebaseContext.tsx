@@ -1,10 +1,18 @@
 'use client';
 import { FIREBASE_API } from "@/config-global";
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import React, { createContext, useCallback, useEffect, useMemo } from "react";
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import React, { createContext, useCallback, useEffect } from "react";
 import { FirebaseContextType } from "../../types/FirebaseTypes";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+
+export enum ErrorType {
+    EMAIL_NOT_VERIFIED = 'Email not verified',
+    ACCOUNT_ALREADY_EXISTS = 'An account already exists with this email.',
+    PASSWORD_TOO_SHORT = 'Password length must be at least 6 characters.',
+    USER_NOT_FOUND = 'Firebase: Error (auth/user-not-found).',
+    WRONG_PASSWORD = 'Firebase: Error (auth/wrong-password).',
+}
 
 // ------------------------------------------------------------------------
 
@@ -54,13 +62,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
             const { user } = await createUserWithEmailAndPassword(AUTH, email, password);
             await updateProfile(user, { displayName: userName }).catch((err) => console.log(err));
             const userRef = doc(DB, 'users', user.uid);
-            await setDoc(userRef, { userName, favorites: [] });
+            await setDoc(userRef, { userName, favorites: [], email: email });
             console.log('this is the end of the registration process');
         } catch (error) {
             console.log(error);
         }
     }, []);
 
-    return <AuthContext.Provider value={{ login, register }}>{children}</AuthContext.Provider>
+    // Password reset
+    const passwordReset = useCallback(async (email: string) => {
+        const signIns = await fetchSignInMethodsForEmail(AUTH, email);
+        if (signIns.length === 0) {
+            throw new Error(ErrorType.USER_NOT_FOUND);
+        } else {
+            sendPasswordResetEmail(AUTH, email);
+        }
+    }, []);
+
+    return <AuthContext.Provider value={{ login, register, passwordReset }}>{children}</AuthContext.Provider>
 
 }
