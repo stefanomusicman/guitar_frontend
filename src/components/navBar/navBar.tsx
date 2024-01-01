@@ -31,6 +31,26 @@ const useStyles = makeStyles(() => ({
         justifyContent: 'space-around',
         alignItems: 'center',
     },
+    splitter: {
+        width: '2px',
+        backgroundColor: 'darkGrey',
+        height: '30px',
+    },
+    links: {
+        color: 'black',
+        fontFamily: 'Montserrat, sans-serif',
+    },
+    button: {
+        borderRadius: '10px',
+        padding: '10px 20px',
+        backgroundColor: '#1F75FE',
+    },
+    name: {
+        color: '#1F75FE',
+        fontWeight: 'bold',
+        flexGrow: 1,
+        fontFamily: 'Montserrat, sans-serif',
+    },
 }));
 
 const NavBar = () => {
@@ -48,21 +68,21 @@ const DesktopNavBar = () => {
         <Box className={classes.mainContainer}>
             <AppBar elevation={0} className={classes.navBar} position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ color: '#1F75FE', fontWeight: 'bold', flexGrow: 1, fontFamily: 'Montserrat, sans-serif' }}>
+                    <Typography variant="h6" component="div" className={classes.name}>
                         Guitar Directory
                     </Typography>
                     <Box className={classes.navLinks}>
-                        <Typography variant="h6" component="div" sx={{ color: 'black', fontFamily: 'Montserrat, sans-serif' }}>
+                        <Typography variant="h6" component="div" className={classes.links}>
                             About
                         </Typography>
-                        <Typography variant="h6" component="div" sx={{ color: 'black' }}>
+                        <Typography variant="h6" component="div" className={classes.links}>
                             Contact
                         </Typography>
-                        <Box sx={{ width: '2px', backgroundColor: 'darkGrey', height: '30px' }}></Box>
-                        <Typography variant="h6" component="div" sx={{ color: 'black' }}>
+                        <Box className={classes.splitter} />
+                        <Typography variant="h6" component="div" className={classes.links}>
                             Login
                         </Typography>
-                        <Button sx={{ borderRadius: '10px', padding: '10px 20px', backgroundColor: '#1F75FE' }} disableElevation variant="contained">Register</Button>
+                        <Button className={classes.button} disableElevation variant="contained">Register</Button>
                     </Box>
                 </Toolbar>
             </AppBar>
@@ -83,7 +103,7 @@ const MobileNavBar = () => {
         <Box className={classes.mainContainer}>
             <AppBar elevation={0} className={classes.navBar} position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', flexGrow: 1, fontFamily: 'Montserrat, sans-serif' }}>
+                    <Typography variant="h6" component="div" className={classes.name}>
                         Guitar Directory
                     </Typography>
                     <IconButton
