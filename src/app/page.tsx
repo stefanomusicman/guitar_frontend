@@ -3,6 +3,7 @@ import { AuthProvider } from "@/auth/FirebaseContext";
 import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Colors from "./colors";
+import HeadlineGrid from "@/components/home/headlineGrid";
 
 const useStyles = makeStyles(() => ({
   mainContainer: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: '5em',
+    marginBottom: '5em',
   },
   button: {
     borderRadius: '10px',
@@ -56,10 +58,11 @@ export default function Home() {
           <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: Colors.primaryOrange }}>Contribute</strong> and help grow the directory</Typography>
         </Box>
         {/* Action Buttons */}
-        <Box sx={{ width: isMobile ? '75%' : '25%' }} className={classes.actionButtonContainer}>
+        <Box sx={{ width: isMobile ? '75%' : '35%' }} className={classes.actionButtonContainer}>
           <Button disableElevation sx={{ backgroundColor: Colors.primaryBlue }} className={classes.button} variant="contained">Search</Button>
           <Button disableElevation sx={{ backgroundColor: Colors.primaryOrange }} className={classes.button} variant="contained">Add</Button>
         </Box>
+        <HeadlineGrid />
       </Box>
     </AuthProvider>
   )
