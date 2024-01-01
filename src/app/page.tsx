@@ -52,8 +52,8 @@ export default function Home() {
       <Box className={classes.mainContainer}>
         {/* Headline Text */}
         <Box className={classes.headlineBox}>
-          <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: '#1F75FE' }}>Search</strong> for a Guitar</Typography>
-          <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: '#FF9F00' }}>Contribute</strong> and help grow the directory</Typography>
+          <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: Colors.primaryBlue }}>Search</strong> for a Guitar</Typography>
+          <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: Colors.primaryOrange }}>Contribute</strong> and help grow the directory</Typography>
         </Box>
         {/* Action Buttons */}
         <Box sx={{ width: isMobile ? '75%' : '25%' }} className={classes.actionButtonContainer}>
