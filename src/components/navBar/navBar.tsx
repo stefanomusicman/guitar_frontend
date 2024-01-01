@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
     },
     navBar: {
         backgroundColor: 'white',
@@ -41,13 +42,13 @@ const NavBar = () => {
 
 // ------------------------------------------------ Desktop App Bar --------------------------------------
 const DesktopNavBar = () => {
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <Box className={classes.mainContainer}>
             <AppBar elevation={0} className={classes.navBar} position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', flexGrow: 1, fontFamily: 'Montserrat, sans-serif' }}>
+                    <Typography variant="h6" component="div" sx={{ color: '#1F75FE', fontWeight: 'bold', flexGrow: 1, fontFamily: 'Montserrat, sans-serif' }}>
                         Guitar Directory
                     </Typography>
                     <Box className={classes.navLinks}>
@@ -61,7 +62,7 @@ const DesktopNavBar = () => {
                         <Typography variant="h6" component="div" sx={{ color: 'black' }}>
                             Login
                         </Typography>
-                        <Button sx={{ borderRadius: '10px', padding: '10px 20px' }} disableElevation variant="contained">Register</Button>
+                        <Button sx={{ borderRadius: '10px', padding: '10px 20px', backgroundColor: '#1F75FE' }} disableElevation variant="contained">Register</Button>
                     </Box>
                 </Toolbar>
             </AppBar>

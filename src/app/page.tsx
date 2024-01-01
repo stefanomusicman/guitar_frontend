@@ -1,13 +1,27 @@
+'use client';
 import { AuthProvider } from "@/auth/FirebaseContext";
-import Link from "next/link";
+import { Box } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
+  mainContainer: {
+    width: '85%',
+    margin: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}));
 
 export default function Home() {
+  const classes = useStyles()
+
   return (
     <AuthProvider>
-      <div>hello world</div>
-      <Link href={'/testForm'}>
-        <button>Go to register form</button>
-      </Link>
+      <Box className={classes.mainContainer}>
+
+      </Box>
     </AuthProvider>
   )
 }
