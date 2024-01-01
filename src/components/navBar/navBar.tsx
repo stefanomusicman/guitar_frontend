@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import Colors from "@/app/colors";
 
 const useStyles = makeStyles(() => ({
     mainContainer: {
@@ -43,10 +44,10 @@ const useStyles = makeStyles(() => ({
     button: {
         borderRadius: '10px',
         padding: '10px 20px',
-        backgroundColor: '#1F75FE',
+        backgroundColor: Colors.primaryBlue,
     },
     name: {
-        color: '#1F75FE',
+        color: Colors.primaryBlue,
         fontWeight: 'bold',
         flexGrow: 1,
         fontFamily: 'Montserrat, sans-serif',
