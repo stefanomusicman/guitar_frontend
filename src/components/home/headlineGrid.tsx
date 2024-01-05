@@ -8,6 +8,9 @@ type CardInfo = {
 }
 
 const useStyles = makeStyles(() => ({
+    main: {
+        marginBottom: '3em',
+    },
     card: {
         height: '12em',
         borderRadius: '15px',
@@ -43,7 +46,7 @@ const HeadlineGrid = () => {
 
 
     return (
-        <Grid container spacing={{ xs: 3, sm: 4, md: 8 }}>
+        <Grid className={classes.main} container spacing={{ xs: 3, sm: 4, md: 8 }}>
             {info.map((cardInfo, index) => (
                 <Grid item key={index} xs={12} md={4}>
                     <Card elevation={0} className={classes.card}>

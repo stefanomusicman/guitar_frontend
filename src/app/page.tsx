@@ -4,6 +4,7 @@ import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material"
 import { makeStyles } from "@mui/styles";
 import Colors from "./colors";
 import HeadlineGrid from "@/components/home/headlineGrid";
+import BrandGrid from "@/components/home/brandGrid";
 
 const useStyles = makeStyles(() => ({
   mainContainer: {
@@ -63,6 +64,7 @@ export default function Home() {
           <Button disableElevation sx={{ backgroundColor: Colors.primaryOrange }} className={classes.button} variant="contained">Add</Button>
         </Box>
         <HeadlineGrid />
+        <BrandGrid />
       </Box>
     </AuthProvider>
   )
