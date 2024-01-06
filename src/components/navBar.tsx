@@ -5,6 +5,7 @@ import { useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import Colors from "@/app/colors";
+import Link from "next/link";
 
 const useStyles = makeStyles(() => ({
     mainContainer: {
@@ -83,7 +84,9 @@ const DesktopNavBar = () => {
                         <Typography variant="h6" component="div" className={classes.links}>
                             Login
                         </Typography>
-                        <Button className={classes.button} disableElevation variant="contained">Register</Button>
+                        <Link href='/register'>
+                            <Button className={classes.button} disableElevation variant="contained">Register</Button>
+                        </Link>
                     </Box>
                 </Toolbar>
             </AppBar>

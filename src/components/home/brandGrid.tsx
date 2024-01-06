@@ -7,6 +7,7 @@ import fenderLogo from '../../../public/fender-logo.png';
 import godinLogo from '../../../public/godin-logo.png';
 import prsLogo from '../../../public/prs-logo.png';
 import suhrLogo from '../../../public/suhr-logo.png';
+import { Key } from "react";
 
 const useStyles = makeStyles(() => ({
     mainContainer: {
@@ -49,7 +50,7 @@ const BrandGrid = () => {
             <Typography variant="h6" className={classes.text}>Check out some of the top brands</Typography>
             <Grid container justifyContent={isDesktop ? 'space-between' : 'space-evenly'} spacing={{ xs: 3, sm: 4 }}>
                 {pics.map((pic) => (
-                    <Grid item xs={12} md={4} xl={2}>
+                    <Grid item key={pic.height as Key} xs={12} md={4} xl={2}>
                         <Card className={classes.card} elevation={0}>
                             <CardContent>
                                 <Image src={pic} alt="Guitar brand logo" width={100} />
