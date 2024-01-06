@@ -48,6 +48,9 @@ const useStyles = makeStyles(() => ({
         color: 'grey',
         paddingBottom: '15px',
     },
+    link: {
+        color: Colors.primaryBlue
+    }
 }));
 
 const RegisterForm = () => {
@@ -71,8 +74,7 @@ const RegisterForm = () => {
     return (
         <form style={{ width: formWidth }} onSubmit={handleSubmit} className={classes.form}>
             <Typography className={classes.title} variant="h6">Sign Up</Typography>
-            {/* TODO: Add the Link to go to the Login page  */}
-            <Typography className={classes.loginLinkText} variant="body1">Already have an account?</Typography>
+            <Typography className={classes.loginLinkText} variant="body1">Already have an account? <Link className={classes.link} href='/login'>Login</Link></Typography>
             <label className={classes.label}>Username</label>
             <TextField className={classes.textField} onChange={(e) => setUsername(e.target.value)} id="username" label="Enter your username" variant="outlined" />
             <label className={classes.label}>Email</label>

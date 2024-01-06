@@ -72,7 +72,9 @@ const DesktopNavBar = () => {
             <AppBar elevation={0} className={classes.navBar} position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" className={classes.name}>
-                        Guitar Directory
+                        <Link href='/'>
+                            Guitar Directory
+                        </Link>
                     </Typography>
                     <Box className={classes.navLinks}>
                         <Typography variant="h6" component="div" className={classes.links}>
@@ -82,9 +84,11 @@ const DesktopNavBar = () => {
                             Contact
                         </Typography>
                         <Box className={classes.splitter} />
-                        <Typography variant="h6" component="div" className={classes.links}>
-                            Login
-                        </Typography>
+                        <Link href='/login'>
+                            <Typography variant="h6" component="div" className={classes.links}>
+                                Login
+                            </Typography>
+                        </Link>
                         <Link href='/register'>
                             <Button className={classes.button} disableElevation variant="contained">Sign Up</Button>
                         </Link>
