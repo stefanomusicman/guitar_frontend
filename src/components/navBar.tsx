@@ -46,6 +46,7 @@ const useStyles = makeStyles(() => ({
         borderRadius: '10px',
         padding: '10px 20px',
         backgroundColor: Colors.primaryBlue,
+        fontFamily: 'Montserrat, sans-serif',
     },
     name: {
         color: Colors.primaryBlue,
@@ -85,7 +86,7 @@ const DesktopNavBar = () => {
                             Login
                         </Typography>
                         <Link href='/register'>
-                            <Button className={classes.button} disableElevation variant="contained">Register</Button>
+                            <Button className={classes.button} disableElevation variant="contained">Sign Up</Button>
                         </Link>
                     </Box>
                 </Toolbar>
