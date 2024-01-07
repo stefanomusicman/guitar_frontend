@@ -1,6 +1,7 @@
 'use client';
 import Colors from "@/app/colors";
-import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { useAuthContext } from "@/auth/useAuthContext";
+import { Alert, Box, Button, CircularProgress, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
@@ -56,17 +57,49 @@ const useStyles = makeStyles(() => ({
 const RegisterForm = () => {
     const classes = useStyles();
 
+    const { register } = useAuthContext();
+
     const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
-    const [errorMessage, setErrorMessage] = useState<string>('');
-    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [feedbackMessage, setFeedbackMessage] = useState<string>('');
+    const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+    const [errors, setError] = useState<boolean>(false);
+    const [passMatch, setPassMatch] = useState<boolean>(true);
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const hasErrors = username.length === 0 || email.length === 0 || password.length === 0 || confirmPassword.length === 0;
+        const passwordsMatch = password === confirmPassword;
 
-        // TODO: Implement Logic for handling form submission
+        if (hasErrors) {
+            setError(true);
+            setFeedbackMessage('Please fix errors');
+        } else if (!passwordsMatch) {
+            setPassMatch(false);
+            setFeedbackMessage('Passwords do not match')
+        } else {
+            try {
+                setError(false);
+                setPassMatch(true);
+                setLoading(true);
+                await register(username, email, password); // Await the registration process
+                setFeedbackMessage('Verification email has been sent');
+                setUsername('');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
+            } catch (error: any) {
+                setError(true);
+                setFeedbackMessage(error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        setFormSubmitted(true);
     }
 
     const theme = useTheme();
@@ -75,6 +108,8 @@ const RegisterForm = () => {
 
     return (
         <form style={{ width: formWidth }} onSubmit={handleSubmit} className={classes.form}>
+            {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
+            {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors || !passMatch ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography className={classes.title} variant="h6">Sign Up</Typography>
             <Typography className={classes.loginLinkText} variant="body1">Already have an account? <Link className={classes.link} href='/login'>Login</Link></Typography>
             <label className={classes.label}>Username</label>

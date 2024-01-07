@@ -78,7 +78,7 @@ const LoginForm = () => {
             <label className={classes.label}>Password</label>
             <TextField className={classes.textField} onChange={(e) => setPassword(e.target.value)} id="password" label="Enter your password" variant="outlined" />
             <Box className={classes.buttonContainer}>
-                <Button type="submit" className={classes.button} disableElevation variant="contained">Sign Up</Button>
+                <Button type="submit" className={classes.button} disableElevation variant="contained">Login</Button>
             </Box>
         </form>
     );
