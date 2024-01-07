@@ -60,6 +60,8 @@ const RegisterForm = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -76,13 +78,51 @@ const RegisterForm = () => {
             <Typography className={classes.title} variant="h6">Sign Up</Typography>
             <Typography className={classes.loginLinkText} variant="body1">Already have an account? <Link className={classes.link} href='/login'>Login</Link></Typography>
             <label className={classes.label}>Username</label>
-            <TextField className={classes.textField} onChange={(e) => setUsername(e.target.value)} id="username" label="Enter your username" variant="outlined" />
+            <TextField
+                error={formSubmitted && username.length === 0}
+                helperText={formSubmitted && username.length === 0 ? 'Field cannot be empty' : ''}
+                value={username} className={classes.textField}
+                onChange={(e) => setUsername(e.target.value)}
+                id="username"
+                label="Enter your username"
+                variant="outlined"
+            />
             <label className={classes.label}>Email</label>
-            <TextField className={classes.textField} onChange={(e) => setEmail(e.target.value)} id="username" label="Enter your email" variant="outlined" />
+            <TextField
+                error={formSubmitted && email.length === 0}
+                helperText={formSubmitted && email.length === 0 ? 'Field cannot be empty' : ''}
+                value={email}
+                className={classes.textField}
+                onChange={(e) => setEmail(e.target.value)}
+                id="username"
+                label="Enter your email"
+                type="email"
+                variant="outlined"
+            />
             <label className={classes.label}>Password</label>
-            <TextField className={classes.textField} onChange={(e) => setPassword(e.target.value)} id="password" label="Enter your password" variant="outlined" />
+            <TextField
+                error={formSubmitted && password.length === 0}
+                helperText={formSubmitted && password.length === 0 ? 'Field cannot be empty' : ''}
+                value={password}
+                type="password"
+                className={classes.textField}
+                onChange={(e) => setPassword(e.target.value)}
+                id="password"
+                label="Enter your password"
+                variant="outlined"
+            />
             <label className={classes.label}>Confirm Password</label>
-            <TextField className={classes.textField} onChange={(e) => setConfirmPassword(e.target.value)} id="confirm-password" label="Confirm your password" variant="outlined" />
+            <TextField
+                error={formSubmitted && confirmPassword.length === 0}
+                helperText={formSubmitted && confirmPassword.length === 0 ? 'Field cannot be empty' : ''}
+                value={confirmPassword}
+                type="password"
+                className={classes.textField}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                id="confirm-password"
+                label="Confirm your password"
+                variant="outlined"
+            />
             <Box className={classes.buttonContainer}>
                 <Button type="submit" className={classes.button} disableElevation variant="contained">Sign Up</Button>
             </Box>

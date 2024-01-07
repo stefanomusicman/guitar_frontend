@@ -1,7 +1,7 @@
 'use client';
 import { FIREBASE_API } from "@/config-global";
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { createContext, useCallback, useEffect } from "react";
 import { FirebaseContextType } from "../../types/FirebaseTypes";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
@@ -61,11 +61,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             const { user } = await createUserWithEmailAndPassword(AUTH, email, password);
             await updateProfile(user, { displayName: userName }).catch((err) => console.log(err));
+            await sendEmailVerification(user)
+                .then(() => console.log('Email has been sent!'))
+                .catch((err) => console.log(err));
             const userRef = doc(DB, 'users', user.uid);
             await setDoc(userRef, { userName, favorites: [], email: email });
             console.log('this is the end of the registration process');
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+                throw new Error(ErrorType.ACCOUNT_ALREADY_EXISTS);
+            }
+            if (error.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+                throw new Error(ErrorType.PASSWORD_TOO_SHORT);
+            }
         }
     }, []);
 
