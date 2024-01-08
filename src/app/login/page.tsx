@@ -1,5 +1,4 @@
 'use client';
-import { AuthProvider } from "@/auth/FirebaseContext";
 import LoginForm from "@/components/loginForm";
 import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -18,11 +17,9 @@ const Login = () => {
     const classes = useStyles();
 
     return (
-        <AuthProvider>
-            <Box className={classes.mainContainer}>
-                <LoginForm />
-            </Box>
-        </AuthProvider>
+        <Box className={classes.mainContainer}>
+            <LoginForm />
+        </Box>
     );
 }
 

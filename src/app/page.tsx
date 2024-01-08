@@ -1,5 +1,4 @@
 'use client';
-import { AuthProvider } from "@/auth/FirebaseContext";
 import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Colors from "./colors";
@@ -51,21 +50,19 @@ export default function Home() {
   const fontSize = isMobile ? '2rem' : '2.5rem';
 
   return (
-    <AuthProvider>
-      <Box className={classes.mainContainer}>
-        {/* Headline Text */}
-        <Box className={classes.headlineBox}>
-          <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: Colors.primaryBlue }}>Search</strong> for a Guitar</Typography>
-          <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: Colors.primaryOrange }}>Contribute</strong> and help grow the directory</Typography>
-        </Box>
-        {/* Action Buttons */}
-        <Box sx={{ width: isMobile ? '75%' : '35%' }} className={classes.actionButtonContainer}>
-          <Button disableElevation sx={{ backgroundColor: Colors.primaryBlue }} className={classes.button} variant="contained">Search</Button>
-          <Button disableElevation sx={{ backgroundColor: Colors.primaryOrange }} className={classes.button} variant="contained">Add</Button>
-        </Box>
-        <HeadlineGrid />
-        <BrandGrid />
+    <Box className={classes.mainContainer}>
+      {/* Headline Text */}
+      <Box className={classes.headlineBox}>
+        <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: Colors.primaryBlue }}>Search</strong> for a Guitar</Typography>
+        <Typography sx={{ fontSize: fontSize }} className={classes.headlineText}><strong style={{ color: Colors.primaryOrange }}>Contribute</strong> and help grow the directory</Typography>
       </Box>
-    </AuthProvider>
+      {/* Action Buttons */}
+      <Box sx={{ width: isMobile ? '75%' : '35%' }} className={classes.actionButtonContainer}>
+        <Button disableElevation sx={{ backgroundColor: Colors.primaryBlue }} className={classes.button} variant="contained">Search</Button>
+        <Button disableElevation sx={{ backgroundColor: Colors.primaryOrange }} className={classes.button} variant="contained">Add</Button>
+      </Box>
+      <HeadlineGrid />
+      <BrandGrid />
+    </Box>
   )
 }
