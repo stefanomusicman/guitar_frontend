@@ -85,12 +85,8 @@ const RegisterForm = () => {
                 setError(false);
                 setPassMatch(true);
                 setLoading(true);
-                await register(username, email, password); // Await the registration process
+                await register(username, email, password);
                 setFeedbackMessage('Verification email has been sent');
-                setUsername('');
-                setEmail('');
-                setPassword('');
-                setConfirmPassword('');
             } catch (error: any) {
                 setError(true);
                 setFeedbackMessage(error.message);

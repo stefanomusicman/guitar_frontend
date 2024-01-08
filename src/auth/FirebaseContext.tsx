@@ -2,17 +2,10 @@
 import { FIREBASE_API } from "@/config-global";
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import React, { createContext, useCallback, useEffect } from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 import { FirebaseContextType } from "../../types/FirebaseTypes";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-
-export enum ErrorType {
-    EMAIL_NOT_VERIFIED = 'Email not verified',
-    ACCOUNT_ALREADY_EXISTS = 'An account already exists with this email.',
-    PASSWORD_TOO_SHORT = 'Password length must be at least 6 characters.',
-    USER_NOT_FOUND = 'Firebase: Error (auth/user-not-found).',
-    WRONG_PASSWORD = 'Firebase: Error (auth/wrong-password).',
-}
+import { ErrorType } from "../../types/error";
 
 // ------------------------------------------------------------------------
 
@@ -31,6 +24,8 @@ type AuthProviderProps = {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
+    const [authenticated, setAuthenticated] = useState<boolean>(false);
+
     const initialize = useCallback(() => {
         try {
             onAuthStateChanged(AUTH, async (user) => {
@@ -53,8 +48,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // LOGIN
     const login = useCallback(async (email: string, password: string) => {
-        await signInWithEmailAndPassword(AUTH, email, password);
-    }, []);
+        try {
+            setAuthenticated(false);
+            await signInWithEmailAndPassword(AUTH, email, password);
+            setAuthenticated(AUTH.currentUser!.emailVerified);
+            if (!authenticated) {
+                throw new Error(ErrorType.EMAIL_NOT_VERIFIED);
+            }
+        } catch (error: any) {
+            if (error.message === 'Email not verified') {
+                throw new Error(ErrorType.EMAIL_NOT_VERIFIED);
+            }
+
+            if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+                throw new Error(ErrorType.INVALID_CREDENTIALS);
+            }
+        }
+    }, [authenticated]);
 
     // REGISTER
     const register = useCallback(async (userName: string, email: string, password: string) => {
