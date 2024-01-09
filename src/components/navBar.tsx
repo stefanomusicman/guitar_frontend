@@ -54,6 +54,9 @@ const useStyles = makeStyles(() => ({
         flexGrow: 1,
         fontFamily: 'Montserrat, sans-serif',
     },
+    mobileNavLinks: {
+        textAlign: 'center',
+    },
 }));
 
 const NavBar = () => {
@@ -134,16 +137,16 @@ const MobileNavBar = () => {
                             </IconButton>
                         </Box>
                         <List>
-                            <ListItem onClick={handleToggleDrawer}>
+                            <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
                                 <ListItemText primary="About" />
                             </ListItem>
-                            <ListItem onClick={handleToggleDrawer}>
+                            <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
                                 <ListItemText primary="Contact" />
                             </ListItem>
-                            <ListItem onClick={handleToggleDrawer}>
+                            <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
                                 <ListItemText primary="Login" />
                             </ListItem>
-                            <ListItem onClick={handleToggleDrawer}>
+                            <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
                                 <ListItemText primary="Register" />
                             </ListItem>
                         </List>
