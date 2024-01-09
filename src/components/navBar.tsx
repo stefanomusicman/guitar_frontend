@@ -81,7 +81,9 @@ const DesktopNavBar = () => {
                     </Typography>
                     <Box className={classes.navLinks}>
                         <Typography variant="h6" component="div" className={classes.links}>
-                            About
+                            <Link href='/about'>
+                                About
+                            </Link>
                         </Typography>
                         <Typography variant="h6" component="div" className={classes.links}>
                             Contact
@@ -138,16 +140,16 @@ const MobileNavBar = () => {
                         </Box>
                         <List>
                             <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                <ListItemText primary="About" />
+                                <Link href='/about'><ListItemText primary="About" /></Link>
                             </ListItem>
                             <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
                                 <ListItemText primary="Contact" />
                             </ListItem>
                             <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                <ListItemText primary="Login" />
+                                <Link href='/login'><ListItemText primary="Login" /></Link>
                             </ListItem>
                             <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                <ListItemText primary="Register" />
+                                <Link href='/register'><ListItemText primary="Register" /></Link>
                             </ListItem>
                         </List>
                     </Drawer>

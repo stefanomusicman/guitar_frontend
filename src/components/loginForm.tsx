@@ -90,8 +90,8 @@ const LoginForm = () => {
     }
 
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const formWidth = isMobile ? '90%' : '45%';
+    const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('md'));
+    const formWidth: string = isMobile ? '90%' : '45%';
 
     return (
         <form style={{ width: formWidth }} onSubmit={handleSubmit} className={classes.form}>

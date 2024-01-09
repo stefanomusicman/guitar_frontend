@@ -35,7 +35,7 @@ const BrandGrid = () => {
     const classes = useStyles();
 
     const theme = useTheme();
-    const isDesktop = useMediaQuery(theme.breakpoints.up('xl'));
+    const isDesktop: Boolean = useMediaQuery(theme.breakpoints.up('xl'));
 
     const pics: StaticImageData[] = [
         gibsonLogo,

@@ -45,9 +45,9 @@ export default function Home() {
   const classes = useStyles();
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('md'));
 
-  const fontSize = isMobile ? '2rem' : '2.5rem';
+  const fontSize: string = isMobile ? '2rem' : '2.5rem';
 
   return (
     <Box className={classes.mainContainer}>
