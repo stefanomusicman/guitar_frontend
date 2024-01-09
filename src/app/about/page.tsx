@@ -67,7 +67,7 @@ const About = () => {
                     <MenuBookIcon sx={{ width: iconSize, height: iconSize }} className={classes.icon} />
                 </Box>
                 <Typography style={{ fontSize: fontSize }} className={classes.text}>{text}</Typography>
-                <Typography style={{ fontSize: fontSize }} className={classes.loginLinkText} variant="body1">Have a question or maybe a suggestion? <Link className={classes.link} href='/register'>Contact Us!</Link></Typography>
+                <Typography style={{ fontSize: fontSize }} className={classes.loginLinkText} variant="body1">Have a question or maybe a suggestion? <Link className={classes.link} href='/contact'>Contact Us!</Link></Typography>
             </Box>
         </GeneralContainer>
     )

@@ -1,10 +1,8 @@
 'use client';
-import Colors from "@/app/colors";
-import { useAuthContext } from "@/auth/useAuthContext";
-import { Alert, Box, Button, CircularProgress, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import Link from "next/link";
+import Colors from "../app/colors";
 import { FormEvent, useState } from "react";
+import { Alert, Box, Button, CircularProgress, Link, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -54,13 +52,12 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const LoginForm = () => {
+const ContactForm = () => {
     const classes = useStyles();
 
-    const { login } = useAuthContext();
-
     const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [name, setName] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [errors, setError] = useState<boolean>(false);
     const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
@@ -68,7 +65,7 @@ const LoginForm = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const hasErrors = email.length === 0 || password.length === 0;
+        const hasErrors = email.length === 0 || name.length === 0;
 
         if (hasErrors) {
             setError(true);
@@ -77,7 +74,6 @@ const LoginForm = () => {
             try {
                 setError(false);
                 setLoading(true);
-                await login(email, password);
             } catch (error: any) {
                 setError(true);
                 setFeedbackMessage(error.message);
@@ -92,13 +88,12 @@ const LoginForm = () => {
     const theme = useTheme();
     const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('md'));
     const formWidth: string = isMobile ? '90%' : '45%';
-
     return (
         <form style={{ width: formWidth }} onSubmit={handleSubmit} className={classes.form}>
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
-            <Typography className={classes.title} variant="h6">Login</Typography>
-            <Typography className={classes.loginLinkText} variant="body1">Don't have an account? <Link className={classes.link} href='/register'>Sign Up</Link></Typography>
+            <Typography className={classes.title} variant="h6">Contact</Typography>
+            <Typography className={classes.loginLinkText} variant="body1">If you have any questions or suggestions, we'd love to hear them!</Typography>
             <label className={classes.label}>Email</label>
             <TextField
                 error={formSubmitted && email.length === 0}
@@ -107,27 +102,41 @@ const LoginForm = () => {
                 type="email"
                 className={classes.textField}
                 onChange={(e) => setEmail(e.target.value)}
-                id="email"
+                id="username"
                 label="Enter your email"
                 variant="outlined"
             />
-            <label className={classes.label}>Password</label>
+            <label className={classes.label}>Name</label>
             <TextField
-                error={formSubmitted && password.length === 0}
-                helperText={formSubmitted && password.length === 0 ? 'Field cannot be empty' : ''}
-                value={password}
-                type="password"
+                error={formSubmitted && name.length === 0}
+                helperText={formSubmitted && name.length === 0 ? 'Field cannot be empty' : ''}
+                value={name}
+                type="text"
                 className={classes.textField}
-                onChange={(e) => setPassword(e.target.value)}
-                id="password"
-                label="Enter your password"
+                onChange={(e) => setName(e.target.value)}
+                id="name"
+                label="Enter your name"
                 variant="outlined"
             />
+            <label className={classes.label}>Message</label>
+            <TextField
+                error={formSubmitted && message.length === 0}
+                helperText={formSubmitted && message.length === 0 ? 'Field cannot be empty' : ''}
+                value={message}
+                type="text"
+                className={classes.textField}
+                onChange={(e) => setMessage(e.target.value)}
+                id="message"
+                label="Enter your message"
+                multiline
+                variant="outlined"
+                maxRows={4}
+            />
             <Box className={classes.buttonContainer}>
-                <Button type="submit" className={classes.button} disableElevation variant="contained">Login</Button>
+                <Button type="submit" className={classes.button} disableElevation variant="contained">Submit</Button>
             </Box>
         </form>
     );
 }
 
-export default LoginForm;
+export default ContactForm;

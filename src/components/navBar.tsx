@@ -86,7 +86,9 @@ const DesktopNavBar = () => {
                             </Link>
                         </Typography>
                         <Typography variant="h6" component="div" className={classes.links}>
-                            Contact
+                            <Link href='/contact'>
+                                Contact
+                            </Link>
                         </Typography>
                         <Box className={classes.splitter} />
                         <Link href='/login'>
