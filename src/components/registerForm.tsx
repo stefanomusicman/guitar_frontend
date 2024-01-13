@@ -1,4 +1,3 @@
-'use client';
 import Colors from "@/app/colors";
 import { useAuthContext } from "@/auth/useAuthContext";
 import { Alert, Box, Button, CircularProgress, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";

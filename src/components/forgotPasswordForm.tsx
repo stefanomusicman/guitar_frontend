@@ -1,9 +1,7 @@
-import Colors from "@/app/colors";
-import { useAuthContext } from "@/auth/useAuthContext";
-import { Alert, Box, Button, CircularProgress, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { Alert, Box, Button, CircularProgress, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import Colors from "@/app/colors";
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -57,21 +55,18 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const LoginForm = () => {
-    const classes = useStyles();
-
-    const { login } = useAuthContext();
-
+const ForgotPasswordForm = () => {
     const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [errors, setError] = useState<boolean>(false);
     const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
     const [feedbackMessage, setFeedbackMessage] = useState<string>('');
 
+    const classes = useStyles();
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const hasErrors = email.length === 0 || password.length === 0;
+        const hasErrors = email.length === 0;
 
         if (hasErrors) {
             setError(true);
@@ -80,7 +75,7 @@ const LoginForm = () => {
             try {
                 setError(false);
                 setLoading(true);
-                await login(email, password);
+                setFeedbackMessage('Email has been sent')
             } catch (error: any) {
                 setError(true);
                 setFeedbackMessage(error.message);
@@ -100,8 +95,8 @@ const LoginForm = () => {
         <form style={{ width: formWidth }} onSubmit={handleSubmit} className={classes.form}>
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
-            <Typography className={classes.title} variant="h6">Login</Typography>
-            <Typography className={classes.loginLinkText} variant="body1">Don't have an account? <Link className={classes.link} href='/register'>Sign Up</Link></Typography>
+            <Typography className={classes.title} variant="h6">Forgot Password</Typography>
+            <Typography className={classes.loginLinkText} variant="body1">Enter your email and we will send you a recovery email.</Typography>
             <label className={classes.label}>Email</label>
             <TextField
                 error={formSubmitted && email.length === 0}
@@ -115,25 +110,11 @@ const LoginForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <label className={classes.label}>Password</label>
-            <TextField
-                error={formSubmitted && password.length === 0}
-                helperText={formSubmitted && password.length === 0 ? 'Field cannot be empty' : ''}
-                value={password}
-                type="password"
-                className={classes.textField}
-                onChange={(e) => setPassword(e.target.value)}
-                id="password"
-                label="Enter your password"
-                variant="outlined"
-                InputProps={{ sx: { borderRadius: '10px' } }}
-            />
-            <Link href='/forgotPassword'><Typography className={classes.forgotPassword}>Forgot Password?</Typography></Link>
             <Box className={classes.buttonContainer}>
-                <Button type="submit" className={classes.button} disableElevation variant="contained">Login</Button>
+                <Button type="submit" className={classes.button} disableElevation variant="contained">Send Email</Button>
             </Box>
         </form>
     );
 }
 
-export default LoginForm;
+export default ForgotPasswordForm;
