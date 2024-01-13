@@ -110,6 +110,7 @@ const LoginForm = () => {
                 id="email"
                 label="Enter your email"
                 variant="outlined"
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <label className={classes.label}>Password</label>
             <TextField
@@ -122,6 +123,7 @@ const LoginForm = () => {
                 id="password"
                 label="Enter your password"
                 variant="outlined"
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <Box className={classes.buttonContainer}>
                 <Button type="submit" className={classes.button} disableElevation variant="contained">Login</Button>

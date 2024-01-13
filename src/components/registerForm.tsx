@@ -117,6 +117,7 @@ const RegisterForm = () => {
                 id="username"
                 label="Enter your username"
                 variant="outlined"
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <label className={classes.label}>Email</label>
             <TextField
@@ -129,6 +130,7 @@ const RegisterForm = () => {
                 label="Enter your email"
                 type="email"
                 variant="outlined"
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <label className={classes.label}>Password</label>
             <TextField
@@ -141,6 +143,7 @@ const RegisterForm = () => {
                 id="password"
                 label="Enter your password"
                 variant="outlined"
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <label className={classes.label}>Confirm Password</label>
             <TextField
@@ -153,6 +156,7 @@ const RegisterForm = () => {
                 id="confirm-password"
                 label="Confirm your password"
                 variant="outlined"
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <Box className={classes.buttonContainer}>
                 <Button type="submit" className={classes.button} disableElevation variant="contained">Sign Up</Button>

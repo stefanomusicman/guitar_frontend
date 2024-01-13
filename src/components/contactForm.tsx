@@ -105,6 +105,7 @@ const ContactForm = () => {
                 id="username"
                 label="Enter your email"
                 variant="outlined"
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <label className={classes.label}>Name</label>
             <TextField
@@ -117,6 +118,7 @@ const ContactForm = () => {
                 id="name"
                 label="Enter your name"
                 variant="outlined"
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <label className={classes.label}>Message</label>
             <TextField
@@ -131,6 +133,7 @@ const ContactForm = () => {
                 multiline
                 variant="outlined"
                 maxRows={4}
+                InputProps={{ sx: { borderRadius: '10px' } }}
             />
             <Box className={classes.buttonContainer}>
                 <Button type="submit" className={classes.button} disableElevation variant="contained">Submit</Button>
