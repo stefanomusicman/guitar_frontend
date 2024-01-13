@@ -5,6 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { Key, useEffect, useState } from "react";
 import { Guitar } from "../../../types/guitar";
 import GuitarAPI from "../../../helpers/guitar_api_functions";
+import GuitarGrid from "../guitarGrid";
 
 const useStyles = makeStyles((isMobile: boolean) => ({
     mainContainer: {
@@ -140,17 +141,7 @@ const SearchSection = () => {
                 </Grid>
             </Grid>
             {/* Grid that will show all the results */}
-            <Grid container direction="row" spacing={0} justifyContent="center" className={classes.resultsContainer}>
-                {guitars.map((guitar) => (
-                    <Grid xs={12} sm={6} md={4} lg={3} item sx={{ display: 'flex', justifyContent: 'center' }} key={guitar.uid as Key}>
-                        <Card elevation={0} className={classes.card}>
-                            <CardContent>
-                                <Typography className={classes.cardText}>{`${guitar.year} ${guitar.brand} ${guitar.model}`}</Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
+            <GuitarGrid guitars={guitars} />
         </Box>
     );
 }
