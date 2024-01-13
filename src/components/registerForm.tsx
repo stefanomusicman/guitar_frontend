@@ -108,31 +108,32 @@ const RegisterForm = () => {
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors || !passMatch ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography className={classes.title} variant="h6">Sign Up</Typography>
             <Typography className={classes.loginLinkText} variant="body1">Already have an account? <Link className={classes.link} href='/login'>Login</Link></Typography>
-            <label className={classes.label}>Username</label>
+            <label htmlFor="username" className={classes.label}>Username</label>
             <TextField
                 error={formSubmitted && username.length === 0}
                 helperText={formSubmitted && username.length === 0 ? 'Field cannot be empty' : ''}
-                value={username} className={classes.textField}
+                value={username}
+                className={classes.textField}
                 onChange={(e) => setUsername(e.target.value)}
                 id="username"
                 label="Enter your username"
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <label className={classes.label}>Email</label>
+            <label htmlFor="email" className={classes.label}>Email</label>
             <TextField
                 error={formSubmitted && email.length === 0}
                 helperText={formSubmitted && email.length === 0 ? 'Field cannot be empty' : ''}
                 value={email}
                 className={classes.textField}
                 onChange={(e) => setEmail(e.target.value)}
-                id="username"
+                id="email"
                 label="Enter your email"
                 type="email"
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <label className={classes.label}>Password</label>
+            <label htmlFor="password" className={classes.label}>Password</label>
             <TextField
                 error={formSubmitted && password.length === 0}
                 helperText={formSubmitted && password.length === 0 ? 'Field cannot be empty' : ''}
@@ -145,7 +146,7 @@ const RegisterForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <label className={classes.label}>Confirm Password</label>
+            <label htmlFor="confirm-password" className={classes.label}>Confirm Password</label>
             <TextField
                 error={formSubmitted && confirmPassword.length === 0}
                 helperText={formSubmitted && confirmPassword.length === 0 ? 'Field cannot be empty' : ''}
