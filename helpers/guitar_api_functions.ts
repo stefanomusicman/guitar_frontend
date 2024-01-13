@@ -28,7 +28,7 @@ class GuitarAPI {
 
 
     // FETCH ALL GUITARS
-    static async fetchGuitars<T>(): Promise<T> {
+    static async fetchGuitars<T>(): Promise<Guitar[]> {
         try {
             const response = await fetch(`${GuitarAPI.baseURL}/guitars/`);
 
@@ -37,7 +37,14 @@ class GuitarAPI {
             }
 
             const data = await response.json();
-            return data as T;
+
+            // Assuming your API returns an object with a 'guitars' property
+            if (Array.isArray(data.guitars)) {
+                return data.guitars as Guitar[];
+            } else {
+                console.error('Invalid API response:', data);
+                throw new Error('Invalid API response');
+            }
         } catch (error: any) {
             console.error('API Request Error:', error.message);
             throw error;

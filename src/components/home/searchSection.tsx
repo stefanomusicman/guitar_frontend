@@ -1,9 +1,10 @@
 'use client';
 import Colors from "@/app/colors";
-import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Box, Button, Grid, TextField, useMediaQuery, useTheme } from "@mui/material";
+import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Box, Button, Card, CardContent, Grid, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { Guitar } from "../../../types/guitar";
+import GuitarAPI from "../../../helpers/guitar_api_functions";
 
 const useStyles = makeStyles((isMobile: boolean) => ({
     mainContainer: {
@@ -46,6 +47,23 @@ const useStyles = makeStyles((isMobile: boolean) => ({
         height: '75vh',
         backgroundColor: 'white',
         borderRadius: '10px',
+        display: 'flex',
+        overflowX: 'auto',
+        padding: '10px',
+    },
+    card: {
+        height: '17em',
+        width: '17em',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '10px',
+        borderRadius: '10px',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+    },
+    cardText: {
+        fontFamily: 'Montserrat, sans-serif',
+        textAlign: 'center',
     },
 }));
 
@@ -75,9 +93,14 @@ const SearchSection = () => {
     }
 
     // TODO: CALL ON METHOD TO FETCH ALL GUITARS TO POPULATE THE GRID WHEN PAGE FIRST LOADS
-    // useEffect(() {
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await GuitarAPI.fetchGuitars();
+            setGuitars(res);
+        };
 
-    // }, []);
+        fetchData();
+    }, []);
 
     return (
         <Box className={classes.mainContainer}>
@@ -112,13 +135,21 @@ const SearchSection = () => {
                         )}
                     />
                 </Grid>
-                <Grid item className={classes.formItem} xs={12} md={4}>
+                <Grid item className={classes.formItem} xs={12} sm={6} md={3}>
                     <Button onClick={handleSearch} disableElevation className={classes.button} variant="contained">Search</Button>
                 </Grid>
             </Grid>
             {/* Grid that will show all the results */}
-            <Grid container className={classes.resultsContainer}>
-
+            <Grid container direction="row" spacing={0} justifyContent="center" className={classes.resultsContainer}>
+                {guitars.map((guitar) => (
+                    <Grid xs={12} sm={6} md={4} lg={3} item sx={{ display: 'flex', justifyContent: 'center' }} key={guitar.uid as Key}>
+                        <Card elevation={0} className={classes.card}>
+                            <CardContent>
+                                <Typography className={classes.cardText}>{`${guitar.year} ${guitar.brand} ${guitar.model}`}</Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
             </Grid>
         </Box>
     );
