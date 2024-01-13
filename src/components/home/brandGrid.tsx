@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'start',
+        marginBottom: '8em',
     },
     card: {
         height: '5em',

@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 import Colors from "./colors";
 import HeadlineGrid from "@/components/home/headlineGrid";
 import BrandGrid from "@/components/home/brandGrid";
+import SearchSection from "@/components/home/searchSection";
 
 const useStyles = makeStyles(() => ({
   mainContainer: {
@@ -63,6 +64,7 @@ export default function Home() {
       </Box>
       <HeadlineGrid />
       <BrandGrid />
+      <SearchSection />
     </Box>
   )
 }
