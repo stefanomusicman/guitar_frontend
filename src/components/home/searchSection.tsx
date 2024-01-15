@@ -84,16 +84,18 @@ const SearchSection = () => {
 
     const handleSearch = () => {
         const hasErrors = searchFilter === '' || searchFilter === null;
-        // TODO: IMPLEMENT PROPER LOGIC FOR FORM HANDLING
         if (hasErrors) {
             console.log('error');
         } else {
-            console.log('all good');
+            const fetchData = async () => {
+                const res = searchFilter === "Brand" ? await GuitarAPI.searchByBrand(searchTerm) : await GuitarAPI.searchByModel(searchTerm);
+                setGuitars(res);
+            }
+            fetchData();
         }
         setFormSubmitted(true);
     }
 
-    // TODO: CALL ON METHOD TO FETCH ALL GUITARS TO POPULATE THE GRID WHEN PAGE FIRST LOADS
     useEffect(() => {
         const fetchData = async () => {
             const res = await GuitarAPI.fetchGuitars();
