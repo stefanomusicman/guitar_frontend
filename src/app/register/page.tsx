@@ -1,6 +1,6 @@
 'use client';
+import RegisterForm from "@/components/forms/registerForm";
 import GeneralContainer from "@/components/generalContainer";
-import RegisterForm from "@/components/registerForm"
 
 const Register = () => {
     return (

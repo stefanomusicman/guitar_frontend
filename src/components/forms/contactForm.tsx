@@ -1,6 +1,6 @@
 'use client';
 import { makeStyles } from "@mui/styles";
-import Colors from "../app/colors";
+import Colors from "../../app/colors";
 import { FormEvent, useState } from "react";
 import { Alert, Box, Button, CircularProgress, Link, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 

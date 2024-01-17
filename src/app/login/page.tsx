@@ -1,6 +1,6 @@
 'use client';
+import LoginForm from "@/components/forms/loginForm";
 import GeneralContainer from "@/components/generalContainer";
-import LoginForm from "@/components/loginForm";
 
 const Login = () => {
     return (

@@ -1,5 +1,5 @@
 'use client';
-import ContactForm from "@/components/contactForm"
+import ContactForm from "@/components/forms/contactForm";
 import GeneralContainer from "@/components/generalContainer"
 
 const Contact = () => {
