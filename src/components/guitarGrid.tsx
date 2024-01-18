@@ -43,6 +43,9 @@ const useStyles = makeStyles(() => ({
             backgroundColor: Colors.primaryOrange,
         },
     },
+    modal: {
+        padding: '25px',
+    }
 }));
 
 const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
@@ -75,7 +78,7 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                 ))}
             </Grid>
             {/* Dialog for displaying the details of the individual guitar */}
-            <Dialog open={open} onClose={handleCloseModal}>
+            <Dialog classes={{ paper: classes.modal }} open={open} onClose={handleCloseModal}>
                 <DialogTitle>{`${selectedGuitar?.year} ${selectedGuitar?.brand} ${selectedGuitar?.model}`}</DialogTitle>
                 <DialogContent>
                     <TableContainer>
