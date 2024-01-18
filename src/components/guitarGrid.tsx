@@ -1,7 +1,8 @@
-import { Card, CardContent, Dialog, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Guitar } from "../../types/guitar";
 import { Fragment, Key, useState } from "react";
 import { makeStyles } from "@mui/styles";
+import Colors from "@/app/colors";
 
 type GuitarGridProps = {
     guitars: Guitar[];
@@ -30,6 +31,17 @@ const useStyles = makeStyles(() => ({
     cardText: {
         fontFamily: 'Montserrat, sans-serif',
         textAlign: 'center',
+    },
+    button: {
+        borderRadius: '10px',
+        padding: '10px 20px',
+        backgroundColor: Colors.primaryBlue,
+        fontFamily: 'Montserrat, sans-serif',
+        color: 'white',
+        transition: 'background-color 0.3s',
+        '&:hover': {
+            backgroundColor: Colors.primaryOrange,
+        },
     },
 }));
 
@@ -78,6 +90,10 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                                     <TableCell>{`${selectedGuitar?.ss_frets}`}</TableCell>
                                 </TableRow>
                                 <TableRow>
+                                    <TableCell>Locking Tuners</TableCell>
+                                    <TableCell>{`${selectedGuitar?.locking_tuners}`}</TableCell>
+                                </TableRow>
+                                <TableRow>
                                     <TableCell>Wood</TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -92,14 +108,13 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                                     <TableCell>Fretboard</TableCell>
                                     <TableCell>{`${selectedGuitar?.wood.fretboard}`}</TableCell>
                                 </TableRow>
-                                <TableRow>
-                                    <TableCell>Locking Tuners</TableCell>
-                                    <TableCell>{`${selectedGuitar?.locking_tuners}`}</TableCell>
-                                </TableRow>
                             </TableBody>
                         </Table>
                     </TableContainer>
                 </DialogContent>
+                <DialogActions>
+                    <Button className={classes.button} onClick={handleCloseModal}>Close</Button>
+                </DialogActions>
             </Dialog>
         </Fragment>
     );
