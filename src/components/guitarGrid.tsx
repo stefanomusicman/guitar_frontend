@@ -1,6 +1,6 @@
-import { Card, CardContent, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Card, CardContent, Dialog, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Guitar } from "../../types/guitar";
-import { Key } from "react";
+import { Fragment, Key, useState } from "react";
 import { makeStyles } from "@mui/styles";
 
 type GuitarGridProps = {
@@ -36,18 +36,72 @@ const useStyles = makeStyles(() => ({
 const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
     const classes = useStyles();
 
+    const [open, setOpen] = useState<boolean>(false);
+    const [selectedGuitar, setSelectedGuitar] = useState<Guitar | null>(null);
+
+    const handleOpenModal = (guitar: Guitar) => {
+        setOpen(true);
+        setSelectedGuitar(guitar);
+    }
+
+    const handleCloseModal = () => {
+        setOpen(false);
+        setSelectedGuitar(null);
+    }
+
     return (
-        <Grid container direction="row" spacing={0} justifyContent="center" className={classes.resultsContainer}>
-            {guitars.map((guitar) => (
-                <Grid xs={12} sm={6} md={4} lg={3} item sx={{ display: 'flex', justifyContent: 'center' }} key={guitar.uid as Key}>
-                    <Card elevation={0} className={classes.card}>
-                        <CardContent>
-                            <Typography className={classes.cardText}>{`${guitar.year} ${guitar.brand} ${guitar.model}`}</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            ))}
-        </Grid>
+        <Fragment>
+            <Grid container direction="row" spacing={0} justifyContent="center" className={classes.resultsContainer}>
+                {guitars.map((guitar) => (
+                    <Grid xs={12} sm={6} md={4} lg={3} item sx={{ display: 'flex', justifyContent: 'center' }} key={guitar.uid as Key}>
+                        <Card elevation={0} className={classes.card} onClick={() => handleOpenModal(guitar)}>
+                            <CardContent>
+                                <Typography className={classes.cardText}>{`${guitar.year} ${guitar.brand} ${guitar.model}`}</Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
+            {/* Dialog for displaying the details of the individual guitar */}
+            <Dialog open={open} onClose={handleCloseModal}>
+                <DialogTitle>{`${selectedGuitar?.year} ${selectedGuitar?.brand} ${selectedGuitar?.model}`}</DialogTitle>
+                <DialogContent>
+                    <TableContainer>
+                        <Table>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>Number of frets</TableCell>
+                                    <TableCell>{`${selectedGuitar?.num_frets}`}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Stainless Steel Frets</TableCell>
+                                    <TableCell>{`${selectedGuitar?.ss_frets}`}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Wood</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Body</TableCell>
+                                    <TableCell>{`${selectedGuitar?.wood.body}`}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Neck</TableCell>
+                                    <TableCell>{`${selectedGuitar?.wood.neck}`}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Fretboard</TableCell>
+                                    <TableCell>{`${selectedGuitar?.wood.fretboard}`}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Locking Tuners</TableCell>
+                                    <TableCell>{`${selectedGuitar?.locking_tuners}`}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </DialogContent>
+            </Dialog>
+        </Fragment>
     );
 }
 
