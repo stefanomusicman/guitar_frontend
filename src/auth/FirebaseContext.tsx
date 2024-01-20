@@ -1,11 +1,12 @@
 'use client';
 import { FIREBASE_API } from "@/config-global";
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { FirebaseContextType } from "../../types/FirebaseTypes";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { ErrorType } from "../../types/error";
+import { useRouter } from "next/navigation";
 
 // ------------------------------------------------------------------------
 
@@ -25,6 +26,7 @@ type AuthProviderProps = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [authenticated, setAuthenticated] = useState<boolean>(false);
+    const { push } = useRouter();
 
     const initialize = useCallback(() => {
         try {
@@ -54,6 +56,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
             setAuthenticated(AUTH.currentUser!.emailVerified);
             if (!authenticated) {
                 throw new Error(ErrorType.EMAIL_NOT_VERIFIED);
+            } else {
+                sessionStorage.setItem('signedIn', 'true');
+                push('/');
             }
         } catch (error: any) {
             if (error.message === 'Email not verified') {
@@ -97,6 +102,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }, []);
 
-    return <AuthContext.Provider value={{ login, register, passwordReset }}>{children}</AuthContext.Provider>
+    // Logout
+    const logout = useCallback(() => {
+        signOut(AUTH);
+        sessionStorage.removeItem('signedIn');
+        push('/');
+    }, []);
+
+    return <AuthContext.Provider value={{ login, register, passwordReset, logout }}>{children}</AuthContext.Provider>
 
 }

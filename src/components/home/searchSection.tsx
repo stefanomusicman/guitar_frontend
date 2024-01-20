@@ -1,8 +1,8 @@
 'use client';
 import Colors from "@/app/colors";
-import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Box, Button, Card, CardContent, Grid, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Key, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Guitar } from "../../../types/guitar";
 import GuitarAPI from "../../../helpers/guitar_api_functions";
 import GuitarGrid from "../guitarGrid";

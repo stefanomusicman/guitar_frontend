@@ -27,6 +27,9 @@ const useStyles = makeStyles(() => ({
         margin: '10px',
         borderRadius: '10px',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+        '&:hover': {
+            cursor: 'pointer',
+        }
     },
     cardText: {
         fontFamily: 'Montserrat, sans-serif',
