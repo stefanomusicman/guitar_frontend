@@ -52,14 +52,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const login = useCallback(async (email: string, password: string) => {
         try {
             setAuthenticated(false);
+
             await signInWithEmailAndPassword(AUTH, email, password);
-            setAuthenticated(AUTH.currentUser!.emailVerified);
-            if (!authenticated) {
-                throw new Error(ErrorType.EMAIL_NOT_VERIFIED);
-            } else {
-                sessionStorage.setItem('signedIn', 'true');
-                push('/');
-            }
+
+            onAuthStateChanged(AUTH, (user) => {
+                // Set the authenticated state based on email verification
+                setAuthenticated(user?.emailVerified ?? false);
+
+                if (!user?.emailVerified) {
+                    throw new Error(ErrorType.EMAIL_NOT_VERIFIED);
+                } else {
+                    sessionStorage.setItem('signedIn', 'true');
+                    push('/');
+                }
+            });
         } catch (error: any) {
             if (error.message === 'Email not verified') {
                 throw new Error(ErrorType.EMAIL_NOT_VERIFIED);
@@ -69,7 +75,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 throw new Error(ErrorType.INVALID_CREDENTIALS);
             }
         }
-    }, [authenticated]);
+    }, [authenticated, push]);
 
     // REGISTER
     const register = useCallback(async (userName: string, email: string, password: string) => {
@@ -107,6 +113,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         signOut(AUTH);
         sessionStorage.removeItem('signedIn');
         push('/');
+        window.location.reload();
     }, []);
 
     return <AuthContext.Provider value={{ login, register, passwordReset, logout }}>{children}</AuthContext.Provider>

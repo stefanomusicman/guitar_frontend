@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import Colors from "@/app/colors";
 import Link from "next/link";
+import { useAuthContext } from "@/auth/useAuthContext";
 
 const useStyles = makeStyles(() => ({
     mainContainer: {
@@ -69,6 +70,8 @@ const NavBar = () => {
 // ------------------------------------------------ Desktop App Bar --------------------------------------
 const DesktopNavBar = () => {
     const classes = useStyles();
+    const isSignedIn = typeof window !== 'undefined' && sessionStorage.getItem('signedIn') === 'true';
+    const { logout } = useAuthContext();
 
     return (
         <Box className={classes.mainContainer}>
@@ -91,14 +94,22 @@ const DesktopNavBar = () => {
                             </Link>
                         </Typography>
                         <Box className={classes.splitter} />
-                        <Link href='/login'>
-                            <Typography variant="h6" component="div" className={classes.links}>
-                                Login
-                            </Typography>
-                        </Link>
-                        <Link href='/register'>
-                            <Button className={classes.button} disableElevation variant="contained">Sign Up</Button>
-                        </Link>
+                        {isSignedIn ?
+                            <Link href=''>
+                                <Typography variant="h6" component="div" className={classes.links}>
+                                    Favorites
+                                </Typography>
+                            </Link> :
+                            <Link href='/login'>
+                                <Typography variant="h6" component="div" className={classes.links}>
+                                    Login
+                                </Typography>
+                            </Link>}
+                        {isSignedIn ?
+                            <Button className={classes.button} onClick={logout} disableElevation variant="contained">Logout</Button> :
+                            <Link href='/register'>
+                                <Button className={classes.button} disableElevation variant="contained">Sign Up</Button>
+                            </Link>}
                     </Box>
                 </Toolbar>
             </AppBar>
@@ -110,10 +121,17 @@ const DesktopNavBar = () => {
 const MobileNavBar = () => {
     const [open, setOpen] = useState(false);
     const classes = useStyles();
+    const isSignedIn = typeof window !== 'undefined' && sessionStorage.getItem('signedIn') === 'true';
+    const { logout } = useAuthContext();
 
     const handleToggleDrawer = () => {
         setOpen(!open);
     };
+
+    const handleLogout = () => {
+        logout();
+        setOpen(!open);
+    }
 
     return (
         <Box className={classes.mainContainer}>
@@ -147,12 +165,20 @@ const MobileNavBar = () => {
                             <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
                                 <ListItemText primary="Contact" />
                             </ListItem>
-                            <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                <Link href='/login'><ListItemText primary="Login" /></Link>
-                            </ListItem>
-                            <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                <Link href='/register'><ListItemText primary="Register" /></Link>
-                            </ListItem>
+                            {isSignedIn ?
+                                <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
+                                    <Link href=''><ListItemText primary="Favorites" /></Link>
+                                </ListItem> :
+                                <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
+                                    <Link href='/login'><ListItemText primary="Login" /></Link>
+                                </ListItem>}
+                            {isSignedIn ?
+                                <ListItem className={classes.mobileNavLinks} onClick={handleLogout}>
+                                    <ListItemText primary="Logout" />
+                                </ListItem> :
+                                <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
+                                    <Link href='/register'><ListItemText primary="Register" /></Link>
+                                </ListItem>}
                         </List>
                     </Drawer>
                 </Toolbar>
