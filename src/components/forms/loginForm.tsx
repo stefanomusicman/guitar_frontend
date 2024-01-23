@@ -1,5 +1,6 @@
 import Colors from "@/app/colors";
 import { useAuthContext } from "@/auth/useAuthContext";
+import { PATH } from "@/routes/path";
 import { Alert, Box, Button, CircularProgress, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Link from "next/link";
@@ -101,7 +102,7 @@ const LoginForm = () => {
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography className={classes.title} variant="h6">Login</Typography>
-            <Typography className={classes.loginLinkText} variant="body1">Don't have an account? <Link className={classes.link} href='/register'>Sign Up</Link></Typography>
+            <Typography className={classes.loginLinkText} variant="body1">Don't have an account? <Link className={classes.link} href={PATH.REGISTER}>Sign Up</Link></Typography>
             <label className={classes.label}>Email</label>
             <TextField
                 error={formSubmitted && email.length === 0}
@@ -128,7 +129,7 @@ const LoginForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <Link href='/forgotPassword'><Typography className={classes.forgotPassword}>Forgot Password?</Typography></Link>
+            <Link href={PATH.FORGOTPASSWORD}><Typography className={classes.forgotPassword}>Forgot Password?</Typography></Link>
             <Box className={classes.buttonContainer}>
                 <Button type="submit" className={classes.button} disableElevation variant="contained">Login</Button>
             </Box>

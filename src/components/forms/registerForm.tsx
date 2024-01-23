@@ -1,5 +1,6 @@
 import Colors from "@/app/colors";
 import { useAuthContext } from "@/auth/useAuthContext";
+import { PATH } from "@/routes/path";
 import { Alert, Box, Button, CircularProgress, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Link from "next/link";
@@ -106,7 +107,7 @@ const RegisterForm = () => {
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors || !passMatch ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography className={classes.title} variant="h6">Sign Up</Typography>
-            <Typography className={classes.loginLinkText} variant="body1">Already have an account? <Link className={classes.link} href='/login'>Login</Link></Typography>
+            <Typography className={classes.loginLinkText} variant="body1">Already have an account? <Link className={classes.link} href={PATH.LOGIN}>Login</Link></Typography>
             <label htmlFor="username" className={classes.label}>Username</label>
             <TextField
                 error={formSubmitted && username.length === 0}

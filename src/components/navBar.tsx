@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Colors from "@/app/colors";
 import Link from "next/link";
 import { useAuthContext } from "@/auth/useAuthContext";
+import { PATH } from "@/routes/path";
 
 const useStyles = makeStyles(() => ({
     mainContainer: {
@@ -78,18 +79,18 @@ const DesktopNavBar = () => {
             <AppBar elevation={0} className={classes.navBar} position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" className={classes.name}>
-                        <Link href='/'>
+                        <Link href={PATH.HOME}>
                             Guitar Directory
                         </Link>
                     </Typography>
                     <Box className={classes.navLinks}>
                         <Typography variant="h6" component="div" className={classes.links}>
-                            <Link href='/about'>
+                            <Link href={PATH.ABOUT}>
                                 About
                             </Link>
                         </Typography>
                         <Typography variant="h6" component="div" className={classes.links}>
-                            <Link href='/contact'>
+                            <Link href={PATH.CONTACT}>
                                 Contact
                             </Link>
                         </Typography>
@@ -100,14 +101,14 @@ const DesktopNavBar = () => {
                                     Favorites
                                 </Typography>
                             </Link> :
-                            <Link href='/login'>
+                            <Link href={PATH.LOGIN}>
                                 <Typography variant="h6" component="div" className={classes.links}>
                                     Login
                                 </Typography>
                             </Link>}
                         {isSignedIn ?
                             <Button className={classes.button} onClick={logout} disableElevation variant="contained">Logout</Button> :
-                            <Link href='/register'>
+                            <Link href={PATH.REGISTER}>
                                 <Button className={classes.button} disableElevation variant="contained">Sign Up</Button>
                             </Link>}
                     </Box>
@@ -160,7 +161,7 @@ const MobileNavBar = () => {
                         </Box>
                         <List>
                             <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                <Link href='/about'><ListItemText primary="About" /></Link>
+                                <Link href={PATH.ABOUT}><ListItemText primary="About" /></Link>
                             </ListItem>
                             <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
                                 <ListItemText primary="Contact" />
@@ -170,14 +171,14 @@ const MobileNavBar = () => {
                                     <Link href=''><ListItemText primary="Favorites" /></Link>
                                 </ListItem> :
                                 <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                    <Link href='/login'><ListItemText primary="Login" /></Link>
+                                    <Link href={PATH.LOGIN}><ListItemText primary="Login" /></Link>
                                 </ListItem>}
                             {isSignedIn ?
                                 <ListItem className={classes.mobileNavLinks} onClick={handleLogout}>
                                     <ListItemText primary="Logout" />
                                 </ListItem> :
                                 <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                    <Link href='/register'><ListItemText primary="Register" /></Link>
+                                    <Link href={PATH.REGISTER}><ListItemText primary="Register" /></Link>
                                 </ListItem>}
                         </List>
                     </Drawer>
