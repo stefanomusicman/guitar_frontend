@@ -7,6 +7,7 @@ import { FirebaseContextType } from "../../types/FirebaseTypes";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { ErrorType } from "../../types/error";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 // ------------------------------------------------------------------------
 
@@ -62,7 +63,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 if (!user?.emailVerified) {
                     throw new Error(ErrorType.EMAIL_NOT_VERIFIED);
                 } else {
-                    sessionStorage.setItem('signedIn', 'true');
+                    //sessionStorage.setItem('signedIn', 'true');
+                    Cookies.set('signedIn', 'true');
                     push('/');
                 }
             });
@@ -111,7 +113,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // Logout
     const logout = useCallback(() => {
         signOut(AUTH);
-        sessionStorage.removeItem('signedIn');
+        // sessionStorage.removeItem('signedIn');
+        Cookies.remove('signedIn');
         push('/');
         window.location.reload();
     }, []);

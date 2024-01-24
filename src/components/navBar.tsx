@@ -8,6 +8,7 @@ import Colors from "@/app/colors";
 import Link from "next/link";
 import { useAuthContext } from "@/auth/useAuthContext";
 import { PATH } from "@/routes/path";
+import Cookies from "js-cookie";
 
 const useStyles = makeStyles(() => ({
     mainContainer: {
@@ -71,7 +72,8 @@ const NavBar = () => {
 // ------------------------------------------------ Desktop App Bar --------------------------------------
 const DesktopNavBar = () => {
     const classes = useStyles();
-    const isSignedIn = typeof window !== 'undefined' && sessionStorage.getItem('signedIn') === 'true';
+    // const isSignedIn = typeof window !== 'undefined' && sessionStorage.getItem('signedIn') === 'true';
+    const isSignedIn = typeof window !== 'undefined' && Cookies.get('signedIn') === 'true';
     const { logout } = useAuthContext();
 
     return (
@@ -122,7 +124,8 @@ const DesktopNavBar = () => {
 const MobileNavBar = () => {
     const [open, setOpen] = useState(false);
     const classes = useStyles();
-    const isSignedIn = typeof window !== 'undefined' && sessionStorage.getItem('signedIn') === 'true';
+    // const isSignedIn = typeof window !== 'undefined' && sessionStorage.getItem('signedIn') === 'true';
+    const isSignedIn = typeof window !== 'undefined' && Cookies.get('signedIn') === 'true';
     const { logout } = useAuthContext();
 
     const handleToggleDrawer = () => {
