@@ -4,10 +4,11 @@ import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { FirebaseContextType } from "../../types/FirebaseTypes";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 import { ErrorType } from "../../types/error";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { Guitar } from "../../types/guitar";
 
 // ------------------------------------------------------------------------
 
@@ -119,6 +120,70 @@ export function AuthProvider({ children }: AuthProviderProps) {
         window.location.reload();
     }, []);
 
-    return <AuthContext.Provider value={{ login, register, passwordReset, logout }}>{children}</AuthContext.Provider>
+    // ADD A GUITAR ID TO FAVORITES FIELD
+    const addToFavorites = useCallback(async (favoriteID: string) => {
+        const { currentUser } = AUTH;
+        if (!currentUser) {
+            throw new Error('User is not authenticated');
+        }
+
+        try {
+            const userRef = doc(DB, 'users', currentUser.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (userSnap.exists()) {
+                const userFavorites = userSnap.data()?.favorites || [];
+                userFavorites.push(favoriteID);
+                await updateDoc(userRef, { favorites: userFavorites });
+            }
+        } catch (error) {
+            console.log("Error adding favorite: ", error);
+        }
+    }, []);
+
+    // REMOVE A GUITAR ID FAVORITES FIELD
+    const removeFromFavorites = useCallback(async (favoriteID: string) => {
+        const { currentUser } = AUTH;
+        if (!currentUser) {
+            throw new Error('User is not authenticated');
+        }
+
+        try {
+            const userRef = doc(DB, 'users', currentUser.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (userSnap.exists()) {
+                const userFavorites = userSnap.data()?.favorites || [];
+                userFavorites.filter((id: string) => id !== favoriteID)
+                await updateDoc(userRef, { favorites: userFavorites });
+            }
+        } catch (error) {
+            console.log("Error removing favorite: ", error);
+        }
+    }, []);
+
+    // RETREIVE ALL FAVORITES
+    const fetchFirebaseFavorites = useCallback(async (): Promise<Guitar[]> => {
+        const { currentUser } = AUTH;
+        if (!currentUser) {
+            throw new Error('User is not authenticated');
+        }
+
+        try {
+            const userRef = doc(DB, 'users', currentUser.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (userSnap.exists()) {
+                const userFavorites = userSnap.data()?.favorites || [];
+                return userFavorites as Guitar[];
+            }
+        } catch (error) {
+            console.log("Error getting favortites: ", error);
+        }
+
+        return [];
+    }, []);
+
+    return <AuthContext.Provider value={{ login, register, passwordReset, logout, addToFavorites, removeFromFavorites, fetchFirebaseFavorites }}>{children}</AuthContext.Provider>
 
 }

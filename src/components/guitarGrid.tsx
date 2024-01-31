@@ -3,6 +3,7 @@ import { Guitar } from "../../types/guitar";
 import { Fragment, Key, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Colors from "@/app/colors";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 type GuitarGridProps = {
     guitars: Guitar[];
@@ -48,7 +49,18 @@ const useStyles = makeStyles(() => ({
     },
     modal: {
         padding: '25px',
-    }
+    },
+    dialogActions: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+    },
+    favoriteButton: {
+        width: '35px',
+        height: '35px',
+        color: 'grey',
+    },
 }));
 
 const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
@@ -118,7 +130,8 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                         </Table>
                     </TableContainer>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions className={classes.dialogActions}>
+                    <FavoriteIcon className={classes.favoriteButton} />
                     <Button className={classes.button} onClick={handleCloseModal}>Close</Button>
                 </DialogActions>
             </Dialog>
