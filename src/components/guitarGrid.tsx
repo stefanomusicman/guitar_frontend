@@ -1,9 +1,11 @@
-import { Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Alert, Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Guitar } from "../../types/guitar";
 import { Fragment, Key, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Colors from "@/app/colors";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useAuthContext } from "@/auth/useAuthContext";
+import Cookies from "js-cookie";
 
 type GuitarGridProps = {
     guitars: Guitar[];
@@ -66,8 +68,17 @@ const useStyles = makeStyles(() => ({
 const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
     const classes = useStyles();
 
+    // Controlling modal
     const [open, setOpen] = useState<boolean>(false);
+    // Storing the selected guitar
     const [selectedGuitar, setSelectedGuitar] = useState<Guitar | null>(null);
+
+    // Firebase/Auth
+    const { fetchFirebaseFavorites } = useAuthContext();
+
+    // Verify if user is signed in
+    const isSignedIn = typeof window !== 'undefined' && Cookies.get('signedIn') === 'true';
+    const [canFavorite, setCanAddFavorite] = useState<boolean>(true);
 
     const handleOpenModal = (guitar: Guitar) => {
         setOpen(true);
@@ -77,6 +88,14 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
     const handleCloseModal = () => {
         setOpen(false);
         setSelectedGuitar(null);
+        setCanAddFavorite(true);
+    }
+
+    const handleFavorite = () => {
+        if (!isSignedIn) {
+            setCanAddFavorite(false);
+            return;
+        }
     }
 
     return (
@@ -131,9 +150,10 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                     </TableContainer>
                 </DialogContent>
                 <DialogActions className={classes.dialogActions}>
-                    <FavoriteIcon className={classes.favoriteButton} />
+                    <FavoriteIcon onClick={handleFavorite} className={classes.favoriteButton} />
                     <Button className={classes.button} onClick={handleCloseModal}>Close</Button>
                 </DialogActions>
+                {!canFavorite && <Alert severity="error">Must be logged in</Alert>}
             </Dialog>
         </Fragment>
     );
