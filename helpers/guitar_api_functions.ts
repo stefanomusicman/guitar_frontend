@@ -111,6 +111,47 @@ class GuitarAPI {
     }
 
     // FETCH A GUITAR BY ID
+    static async fetchById<T>(id: string): Promise<Guitar> {
+        try {
+            const url = new URL(`${GuitarAPI.baseURL}/${id}/`);
+
+            const response = await fetch(url.toString(), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data) {
+                return data as Guitar;
+            } else {
+                console.error('Invalid API response: ', data);
+            }
+        } catch (error: any) {
+            console.error('API Request Error: ', error.message);
+        }
+
+        return {
+            brand: '',
+            locking_tuners: false,
+            model: '',
+            num_frets: 0,
+            ss_frets: false,
+            uid: '',
+            wood: {
+                body: '',
+                fretboard: '',
+                neck: '',
+            },
+            year: 0,
+        };
+    }
 }
 
 export default GuitarAPI;
