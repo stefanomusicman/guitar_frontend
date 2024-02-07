@@ -153,8 +153,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             const userSnap = await getDoc(userRef);
 
             if (userSnap.exists()) {
-                const userFavorites = userSnap.data()?.favorites || [];
-                userFavorites.filter((id: string) => id !== favoriteID)
+                let userFavorites = userSnap.data()?.favorites || [];
+                userFavorites = userFavorites.filter((id: string) => id !== favoriteID);
                 await updateDoc(userRef, { favorites: userFavorites });
             }
         } catch (error) {
