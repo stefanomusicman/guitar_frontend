@@ -98,7 +98,7 @@ const DesktopNavBar = () => {
                         </Typography>
                         <Box className={classes.splitter} />
                         {isSignedIn ?
-                            <Link href=''>
+                            <Link href={PATH.FAVORITES}>
                                 <Typography variant="h6" component="div" className={classes.links}>
                                     Favorites
                                 </Typography>
@@ -171,7 +171,7 @@ const MobileNavBar = () => {
                             </ListItem>
                             {isSignedIn ?
                                 <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
-                                    <Link href=''><ListItemText primary="Favorites" /></Link>
+                                    <Link href={PATH.FAVORITES}><ListItemText primary="Favorites" /></Link>
                                 </ListItem> :
                                 <ListItem className={classes.mobileNavLinks} onClick={handleToggleDrawer}>
                                     <Link href={PATH.LOGIN}><ListItemText primary="Login" /></Link>

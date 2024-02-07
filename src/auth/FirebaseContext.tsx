@@ -163,7 +163,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }, []);
 
     // RETREIVE ALL FAVORITES
-    const fetchFirebaseFavorites = useCallback(async (): Promise<Guitar[]> => {
+    const fetchFirebaseFavorites = useCallback(async (): Promise<string[]> => {
         const { currentUser } = AUTH;
         if (!currentUser) {
             throw new Error('User is not authenticated');
@@ -175,7 +175,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             if (userSnap.exists()) {
                 const userFavorites = userSnap.data()?.favorites || [];
-                return userFavorites as Guitar[];
+                return userFavorites as string[];
             }
         } catch (error) {
             console.log("Error getting favortites: ", error);
