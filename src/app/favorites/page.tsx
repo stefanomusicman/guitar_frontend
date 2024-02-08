@@ -1,19 +1,28 @@
 'use client';
 import { useAuthContext } from "@/auth/useAuthContext";
 import GeneralContainer from "@/components/generalContainer"
-import { Button, Typography } from "@mui/material"
+import { Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { Guitar } from "../../../types/guitar";
 import GuitarAPI from "../../../helpers/guitar_api_functions";
+import GuitarGrid from "@/components/guitarGrid";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
+    text: {
+        fontWeight: 'bold',
+        fontFamily: 'Montserrat, sans-serif',
+        fontSize: '2rem',
+        marginBottom: '30px',
+    }
+}));
 
 const Favorites = () => {
+    const classes = useStyles();
+
     const { fetchFirebaseFavorites } = useAuthContext();
 
     const [favorites, setFavorites] = useState<Guitar[]>([]);
-
-    const handleTest = () => {
-        console.log(favorites);
-    }
 
     useEffect(() => {
         async function fetchFavorites() {
@@ -32,8 +41,8 @@ const Favorites = () => {
 
     return (
         <GeneralContainer>
-            <Typography>Your Favorites</Typography>
-            <Button onClick={handleTest}>Click here</Button>
+            <Typography className={classes.text}>Your Favorites</Typography>
+            <GuitarGrid guitars={favorites} />
         </GeneralContainer>
     );
 }
