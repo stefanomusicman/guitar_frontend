@@ -1,12 +1,9 @@
 'use client';
-import { useAuthContext } from "@/auth/useAuthContext";
 import GeneralContainer from "@/components/generalContainer"
 import { Typography } from "@mui/material"
-import { useEffect, useState } from "react";
-import { Guitar } from "../../../types/guitar";
-import GuitarAPI from "../../../helpers/guitar_api_functions";
 import GuitarGrid from "@/components/guitarGrid";
 import { makeStyles } from "@mui/styles";
+import useFetchFavorites from "@/hooks/useFetchFavorites";
 
 const useStyles = makeStyles(() => ({
     text: {
@@ -20,24 +17,7 @@ const useStyles = makeStyles(() => ({
 const Favorites = () => {
     const classes = useStyles();
 
-    const { fetchFirebaseFavorites } = useAuthContext();
-
-    const [favorites, setFavorites] = useState<Guitar[]>([]);
-
-    useEffect(() => {
-        async function fetchFavorites() {
-            const favoritesArray = await fetchFirebaseFavorites();
-            const promises: Promise<Guitar>[] = favoritesArray.map((id: string) => GuitarAPI.fetchById(id));
-            Promise.all(promises)
-                .then((results) => {
-                    setFavorites(results);
-                })
-                .catch((error) => {
-                    console.log("Error fetching guitars: ", error);
-                });
-        }
-        fetchFavorites();
-    }, []);
+    const favorites = useFetchFavorites();
 
     return (
         <GeneralContainer>
