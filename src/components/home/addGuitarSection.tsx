@@ -40,6 +40,7 @@ const AddGuitarSection = () => {
     const classes = useStyles();
 
     const autoCompleteOptions = ['True', 'False'];
+    const woodOptions = ['Maple', 'Rosewood', 'Cedar', 'Basswood', 'Ebony', 'Cocobolo', 'Mahogany', 'Alder', 'Bubinga'];
 
     return (
         <MainContainer>
@@ -108,6 +109,53 @@ const AddGuitarSection = () => {
                             className={classes.dataList}
                             {...params}
                             label="Locking Tuners"
+                            variant="outlined"
+                            InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }}
+                        />
+                    )}
+                />
+            </FormSectionContainer>
+            <FormSectionContainer title="Wood">
+                <Autocomplete
+                    options={woodOptions}
+                    // onChange={(event, value) => setSearchTermFilter(value)}
+                    renderInput={(params) => (
+                        <TextField
+                            // error={formSubmitted && searchFilter === ''}
+                            // helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
+                            className={classes.dataList}
+                            {...params}
+                            label="Body"
+                            variant="outlined"
+                            InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }}
+                        />
+                    )}
+                />
+                <Autocomplete
+                    options={woodOptions}
+                    // onChange={(event, value) => setSearchTermFilter(value)}
+                    renderInput={(params) => (
+                        <TextField
+                            // error={formSubmitted && searchFilter === ''}
+                            // helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
+                            className={classes.dataList}
+                            {...params}
+                            label="Neck"
+                            variant="outlined"
+                            InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }}
+                        />
+                    )}
+                />
+                <Autocomplete
+                    options={woodOptions}
+                    // onChange={(event, value) => setSearchTermFilter(value)}
+                    renderInput={(params) => (
+                        <TextField
+                            // error={formSubmitted && searchFilter === ''}
+                            // helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
+                            className={classes.dataList}
+                            {...params}
+                            label="Fretboard"
                             variant="outlined"
                             InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }}
                         />
