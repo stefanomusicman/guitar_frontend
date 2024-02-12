@@ -1,9 +1,10 @@
 import { Autocomplete, TextField, Typography } from "@mui/material";
-import MainContainer from "./mainContainer";
+import MainContainer from "../mainContainer";
 import { makeStyles } from "@mui/styles";
-import FormSectionContainer from "./formSectionContainer";
+import FormSectionContainer from "../formSectionContainer";
 import Colors from "@/app/colors";
 import { useState } from "react";
+import MainInformation from "./mainInfo";
 
 const useStyles = makeStyles(() => ({
     headline: {
@@ -71,32 +72,7 @@ const AddGuitarSection = () => {
     return (
         <MainContainer>
             <Typography variant="h6" className={classes.headline}><strong style={{ color: Colors.primaryOrange }}>Add</strong> a <strong style={{ color: Colors.primaryBlue }}>Guitar</strong> to our Directory!</Typography>
-            <FormSectionContainer title="Main Information">
-                <TextField
-                    // value={searchTerm}
-                    // onChange={(e) => setSearchTerm(e.target.value)}
-                    id="year"
-                    label="Enter year"
-                    variant="outlined"
-                    InputProps={{ sx: { borderRadius: '10px' } }}
-                />
-                <TextField
-                    // value={searchTerm}
-                    // onChange={(e) => setSearchTerm(e.target.value)}
-                    id="brand"
-                    label="Enter a brand"
-                    variant="outlined"
-                    InputProps={{ sx: { borderRadius: '10px' } }}
-                />
-                <TextField
-                    // value={searchTerm}
-                    // onChange={(e) => setSearchTerm(e.target.value)}
-                    id="model"
-                    label="Enter a model"
-                    variant="outlined"
-                    InputProps={{ sx: { borderRadius: '10px' } }}
-                />
-            </FormSectionContainer>
+            <MainInformation year={year} brand={brand} model={model} setYear={handleSetYear} setBrand={handleSetBrand} setModel={handleSetModel} />
             <FormSectionContainer title="Hardware/Fret Information">
                 <TextField
                     // value={searchTerm}
@@ -104,8 +80,7 @@ const AddGuitarSection = () => {
                     id="numFrets"
                     label="Enter Number of frets"
                     variant="outlined"
-                    InputProps={{ sx: { borderRadius: '10px' } }}
-                />
+                    InputProps={{ sx: { borderRadius: '10px' } }} />
                 <Autocomplete
                     options={autoCompleteOptions}
                     // onChange={(event, value) => setSearchTermFilter(value)}
@@ -117,10 +92,8 @@ const AddGuitarSection = () => {
                             {...params}
                             label="Stainless Steel Frets"
                             variant="outlined"
-                            InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }}
-                        />
-                    )}
-                />
+                            InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }} />
+                    )} />
                 <Autocomplete
                     options={autoCompleteOptions}
                     // onChange={(event, value) => setSearchTermFilter(value)}
@@ -132,10 +105,8 @@ const AddGuitarSection = () => {
                             {...params}
                             label="Locking Tuners"
                             variant="outlined"
-                            InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }}
-                        />
-                    )}
-                />
+                            InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }} />
+                    )} />
             </FormSectionContainer>
             <FormSectionContainer title="Wood">
                 <Autocomplete
