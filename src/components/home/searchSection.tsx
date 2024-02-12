@@ -6,15 +6,9 @@ import { useEffect, useState } from "react";
 import { Guitar } from "../../../types/guitar";
 import GuitarAPI from "../../../helpers/guitar_api_functions";
 import GuitarGrid from "../guitarGrid";
+import MainContainer from "./mainContainer";
 
 const useStyles = makeStyles((isMobile: boolean) => ({
-    mainContainer: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'start',
-        alignItems: 'center',
-    },
     formContainer: {
         display: 'flex',
         justifyContent: 'center',
@@ -106,7 +100,7 @@ const SearchSection = () => {
     }, []);
 
     return (
-        <Box className={classes.mainContainer}>
+        <MainContainer>
             <label className={classes.label}>Try Searching for your favorite guitar by <strong style={{ color: Colors.primaryBlue }}>brand</strong> or <strong style={{ color: Colors.primaryOrange }}>model</strong></label>
             <Grid spacing={{ xs: 3 }} container className={classes.formContainer}>
                 <Grid item className={classes.formItem} xs={12} md={4}>
@@ -144,7 +138,9 @@ const SearchSection = () => {
             </Grid>
             {/* Grid that will show all the results */}
             <GuitarGrid guitars={guitars} />
-        </Box>
+            {/* ADD SOME SPACE */}
+            <Box sx={{ marginBottom: '8em' }}></Box>
+        </MainContainer>
     );
 }
 

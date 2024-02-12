@@ -5,6 +5,7 @@ import Colors from "./colors";
 import HeadlineGrid from "@/components/home/headlineGrid";
 import BrandGrid from "@/components/home/brandGrid";
 import SearchSection from "@/components/home/searchSection";
+import AddGuitarSection from "@/components/home/addGuitarSection";
 
 const useStyles = makeStyles(() => ({
   mainContainer: {
@@ -65,6 +66,7 @@ export default function Home() {
       <HeadlineGrid />
       <BrandGrid />
       <SearchSection />
+      <AddGuitarSection />
     </Box>
   )
 }
