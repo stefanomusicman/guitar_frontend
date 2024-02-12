@@ -5,6 +5,7 @@ import FormSectionContainer from "../formSectionContainer";
 import Colors from "@/app/colors";
 import { useState } from "react";
 import MainInformation from "./mainInfo";
+import HardwareInfo from "./hardwareInfo";
 
 const useStyles = makeStyles(() => ({
     headline: {
@@ -73,7 +74,8 @@ const AddGuitarSection = () => {
         <MainContainer>
             <Typography variant="h6" className={classes.headline}><strong style={{ color: Colors.primaryOrange }}>Add</strong> a <strong style={{ color: Colors.primaryBlue }}>Guitar</strong> to our Directory!</Typography>
             <MainInformation year={year} brand={brand} model={model} setYear={handleSetYear} setBrand={handleSetBrand} setModel={handleSetModel} />
-            <FormSectionContainer title="Hardware/Fret Information">
+            <HardwareInfo numFrets={numFrets} setLockingTuners={handleSetTuners} setNumFrets={handleSetNumFrets} setStainlessFrets={handleSetSSFrets} />
+            {/* <FormSectionContainer title="Hardware/Fret Information">
                 <TextField
                     // value={searchTerm}
                     // onChange={(e) => setSearchTerm(e.target.value)}
@@ -107,7 +109,7 @@ const AddGuitarSection = () => {
                             variant="outlined"
                             InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }} />
                     )} />
-            </FormSectionContainer>
+            </FormSectionContainer> */}
             <FormSectionContainer title="Wood">
                 <Autocomplete
                     options={woodOptions}
