@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
         flexDirection: 'column',
         justifyContent: 'start',
         alignItems: 'start',
+        marginBottom: '50px',
     },
     formRow: {
         width: '100%',
