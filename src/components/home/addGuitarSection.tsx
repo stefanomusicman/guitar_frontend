@@ -2,6 +2,7 @@ import { Autocomplete, TextField, Typography } from "@mui/material";
 import MainContainer from "./mainContainer";
 import { makeStyles } from "@mui/styles";
 import FormSectionContainer from "./formSectionContainer";
+import Colors from "@/app/colors";
 
 const useStyles = makeStyles(() => ({
     headline: {
@@ -27,9 +28,6 @@ const useStyles = makeStyles(() => ({
         fontSize: '1.3rem',
         marginBottom: '1em',
     },
-    textField: {
-
-    },
     dataList: {
         width: '200px',
         // marginRight: isMobile ? '0px' : '15px',
@@ -44,11 +42,10 @@ const AddGuitarSection = () => {
 
     return (
         <MainContainer>
-            <Typography variant="h6" className={classes.headline}>Add a Guitar to our Directory!</Typography>
+            <Typography variant="h6" className={classes.headline}><strong style={{ color: Colors.primaryOrange }}>Add</strong> a <strong style={{ color: Colors.primaryBlue }}>Guitar</strong> to our Directory!</Typography>
             <FormSectionContainer title="Main Information">
                 <TextField
                     // value={searchTerm}
-                    className={classes.textField}
                     // onChange={(e) => setSearchTerm(e.target.value)}
                     id="year"
                     label="Enter year"
@@ -57,7 +54,6 @@ const AddGuitarSection = () => {
                 />
                 <TextField
                     // value={searchTerm}
-                    className={classes.textField}
                     // onChange={(e) => setSearchTerm(e.target.value)}
                     id="brand"
                     label="Enter a brand"
@@ -66,7 +62,6 @@ const AddGuitarSection = () => {
                 />
                 <TextField
                     // value={searchTerm}
-                    className={classes.textField}
                     // onChange={(e) => setSearchTerm(e.target.value)}
                     id="model"
                     label="Enter a model"
@@ -77,7 +72,6 @@ const AddGuitarSection = () => {
             <FormSectionContainer title="Hardware/Fret Information">
                 <TextField
                     // value={searchTerm}
-                    className={classes.textField}
                     // onChange={(e) => setSearchTerm(e.target.value)}
                     id="numFrets"
                     label="Enter Number of frets"
