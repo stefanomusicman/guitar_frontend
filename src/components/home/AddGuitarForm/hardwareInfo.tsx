@@ -10,13 +10,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 type MainInfoProps = {
+    formSubmitted: Boolean;
     numFrets: Number;
+    stainlessFrets: String;
+    lockingTuners: String;
     setNumFrets: (num: Number) => void;
     setStainlessFrets: (input: String) => void;
     setLockingTuners: (input: String) => void;
 }
 
-const HardwareInfo: React.FC<MainInfoProps> = ({ numFrets, setNumFrets, setLockingTuners, setStainlessFrets }) => {
+const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainlessFrets, lockingTuners, setNumFrets, setLockingTuners, setStainlessFrets }) => {
     const classes = useStyles();
 
     const autoCompleteOptions = ['True', 'False'];
@@ -25,6 +28,8 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ numFrets, setNumFrets, setLocki
         <FormSectionContainer title="Hardware/Fret Information">
             <TextField
                 value={numFrets}
+                error={formSubmitted && numFrets === 0}
+                helperText={formSubmitted && numFrets === 0 ? 'Field cannot be 0' : ''}
                 onChange={(e) => setNumFrets(Number(e.target.value))}
                 id="numFrets"
                 label="Enter Number of frets"
@@ -35,8 +40,9 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ numFrets, setNumFrets, setLocki
                 onChange={(event, value) => setStainlessFrets(value as String)}
                 renderInput={(params) => (
                     <TextField
-                        // error={formSubmitted && searchFilter === ''}
-                        // helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
+                        value={stainlessFrets}
+                        error={formSubmitted && stainlessFrets === ''}
+                        helperText={formSubmitted && stainlessFrets === '' ? 'Field cannot be empty' : ''}
                         className={classes.dataList}
                         {...params}
                         label="Stainless Steel Frets"
@@ -48,8 +54,9 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ numFrets, setNumFrets, setLocki
                 onChange={(event, value) => setLockingTuners(value as String)}
                 renderInput={(params) => (
                     <TextField
-                        // error={formSubmitted && searchFilter === ''}
-                        // helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
+                        value={lockingTuners}
+                        error={formSubmitted && lockingTuners === ''}
+                        helperText={formSubmitted && lockingTuners === '' ? 'Field cannot be empty' : ''}
                         className={classes.dataList}
                         {...params}
                         label="Locking Tuners"

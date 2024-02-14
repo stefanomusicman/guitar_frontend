@@ -10,12 +10,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 type WoodInfoProps = {
+    formSubmitted: Boolean;
+    bodyWood: String;
+    neckWood: String;
+    fretWood: String;
     setBodyWood: (wood: String) => void;
     setNeckWood: (wood: String) => void;
     setFretWood: (wood: String) => void;
 }
 
-const WoodInfo: React.FC<WoodInfoProps> = ({ setBodyWood, setFretWood, setNeckWood }) => {
+const WoodInfo: React.FC<WoodInfoProps> = ({ formSubmitted, bodyWood, neckWood, fretWood, setBodyWood, setFretWood, setNeckWood }) => {
     const classes = useStyles();
 
     const woodOptions = ['Maple', 'Rosewood', 'Cedar', 'Basswood', 'Ebony', 'Cocobolo', 'Mahogany', 'Alder', 'Bubinga'];
@@ -27,8 +31,9 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ setBodyWood, setFretWood, setNeckWo
                 onChange={(event, value) => setBodyWood(value as String)}
                 renderInput={(params) => (
                     <TextField
-                        // error={formSubmitted && searchFilter === ''}
-                        // helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
+                        value={bodyWood}
+                        error={formSubmitted && bodyWood === ''}
+                        helperText={formSubmitted && bodyWood === '' ? 'Field cannot be empty' : ''}
                         className={classes.dataList}
                         {...params}
                         label="Body"
@@ -42,8 +47,9 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ setBodyWood, setFretWood, setNeckWo
                 onChange={(event, value) => setNeckWood(value as String)}
                 renderInput={(params) => (
                     <TextField
-                        // error={formSubmitted && searchFilter === ''}
-                        // helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
+                        value={neckWood}
+                        error={formSubmitted && neckWood === ''}
+                        helperText={formSubmitted && neckWood === '' ? 'Field cannot be empty' : ''}
                         className={classes.dataList}
                         {...params}
                         label="Neck"
@@ -57,8 +63,9 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ setBodyWood, setFretWood, setNeckWo
                 onChange={(event, value) => setFretWood(value as String)}
                 renderInput={(params) => (
                     <TextField
-                        // error={formSubmitted && searchFilter === ''}
-                        // helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
+                        value={fretWood}
+                        error={formSubmitted && fretWood === ''}
+                        helperText={formSubmitted && fretWood === '' ? 'Field cannot be empty' : ''}
                         className={classes.dataList}
                         {...params}
                         label="Fretboard"

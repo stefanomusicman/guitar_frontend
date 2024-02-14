@@ -58,6 +58,7 @@ const AddGuitarSection = () => {
     const handleSetFretWood = (wood: String) => setFretboardWood(wood);
 
     const handleSubmit = () => {
+        setFormSubmitted(true);
         console.log('Year: ', year);
         console.log('Brand: ', brand);
         console.log('Model: ', model);
@@ -76,15 +77,23 @@ const AddGuitarSection = () => {
                 year={year}
                 brand={brand}
                 model={model}
+                formSubmitted={formSubmitted}
                 setYear={handleSetYear}
                 setBrand={handleSetBrand}
                 setModel={handleSetModel} />
             <HardwareInfo
+                formSubmitted={formSubmitted}
                 numFrets={numFrets}
+                stainlessFrets={stainlessFrets}
+                lockingTuners={lockingTuners}
                 setLockingTuners={handleSetTuners}
                 setNumFrets={handleSetNumFrets}
                 setStainlessFrets={handleSetSSFrets} />
             <WoodInfo
+                formSubmitted={formSubmitted}
+                bodyWood={bodyWood}
+                neckWood={neckWood}
+                fretWood={fretboardWood}
                 setBodyWood={handleSetBodyWood}
                 setFretWood={handleSetFretWood}
                 setNeckWood={handleSetNeckWood} />
