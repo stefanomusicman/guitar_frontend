@@ -138,8 +138,6 @@ const SearchSection = () => {
             </Grid>
             {/* Grid that will show all the results */}
             <GuitarGrid guitars={guitars} />
-            {/* ADD SOME SPACE */}
-            <Box sx={{ marginBottom: '6em' }}></Box>
         </MainContainer>
     );
 }
