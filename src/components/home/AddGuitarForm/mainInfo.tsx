@@ -1,5 +1,14 @@
-import { TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import FormSectionContainer from "../formSectionContainer";
+import { useEffect } from "react";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
+    dataList: {
+        width: '200px',
+        // marginRight: isMobile ? '0px' : '15px',
+    },
+}));
 
 type MainInformationProps = {
     year: Number;
@@ -12,17 +21,31 @@ type MainInformationProps = {
 }
 
 const MainInformation: React.FC<MainInformationProps> = ({ year, brand, model, formSubmitted, setYear, setBrand, setModel }) => {
+    const classes = useStyles();
+
+    const yearOptions: String[] = [];
+
+    const currentYear = new Date().getFullYear();
+    for (let i = 1950; i < currentYear; i++) {
+        yearOptions.push(String(i));
+    }
+
     return (
         <FormSectionContainer title="Main Information">
-            <TextField
-                value={year}
-                error={formSubmitted && year === 0}
-                helperText={formSubmitted && year === 0 ? 'Field cannot be 0' : ''}
-                onChange={(e) => setYear(Number(e.target.value))}
-                id="year"
-                label="Enter year"
-                variant="outlined"
-                InputProps={{ sx: { borderRadius: '10px' } }} />
+            <Autocomplete
+                options={yearOptions}
+                onChange={(event, value) => setYear(Number(value))}
+                renderInput={(params) => (
+                    <TextField
+                        value={year}
+                        error={formSubmitted && year === 0}
+                        helperText={formSubmitted && year === 0 ? 'Field cannot be empty' : ''}
+                        className={classes.dataList}
+                        {...params}
+                        label="Year"
+                        variant="outlined"
+                        InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }} />
+                )} />
             <TextField
                 value={brand}
                 error={formSubmitted && brand === ''}

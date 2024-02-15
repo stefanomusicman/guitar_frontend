@@ -23,18 +23,24 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainl
     const classes = useStyles();
 
     const autoCompleteOptions = ['True', 'False'];
+    const fretOptions = ['22', '24'];
 
     return (
         <FormSectionContainer title="Hardware/Fret Information">
-            <TextField
-                value={numFrets}
-                error={formSubmitted && numFrets === 0}
-                helperText={formSubmitted && numFrets === 0 ? 'Field cannot be 0' : ''}
-                onChange={(e) => setNumFrets(Number(e.target.value))}
-                id="numFrets"
-                label="Enter Number of frets"
-                variant="outlined"
-                InputProps={{ sx: { borderRadius: '10px' } }} />
+            <Autocomplete
+                options={fretOptions}
+                onChange={(event, value) => setNumFrets(Number(value))}
+                renderInput={(params) => (
+                    <TextField
+                        value={numFrets}
+                        error={formSubmitted && numFrets === 0}
+                        helperText={formSubmitted && numFrets === 0 ? 'Field cannot be empty' : ''}
+                        className={classes.dataList}
+                        {...params}
+                        label="Number of Frets"
+                        variant="outlined"
+                        InputProps={{ ...params.InputProps, type: 'search', sx: { borderRadius: '10px' } }} />
+                )} />
             <Autocomplete
                 options={autoCompleteOptions}
                 onChange={(event, value) => setStainlessFrets(value as String)}
