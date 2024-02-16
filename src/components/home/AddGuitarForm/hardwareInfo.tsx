@@ -11,10 +11,10 @@ const useStyles = makeStyles(() => ({
 
 type MainInfoProps = {
     formSubmitted: Boolean;
-    numFrets: Number;
+    numFrets: number;
     stainlessFrets: String;
     lockingTuners: String;
-    setNumFrets: (num: Number) => void;
+    setNumFrets: (num: number) => void;
     setStainlessFrets: (input: String) => void;
     setLockingTuners: (input: String) => void;
 }

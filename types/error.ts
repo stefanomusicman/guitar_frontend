@@ -5,4 +5,5 @@ export enum ErrorType {
     USER_NOT_FOUND = 'Firebase: Error (auth/user-not-found).',
     WRONG_PASSWORD = 'Firebase: Error (auth/wrong-password).',
     INVALID_CREDENTIALS = 'Invalid username/password',
+    EMPTY_FORM_FIELDS = 'Form Fields cannot be empty'
 }
