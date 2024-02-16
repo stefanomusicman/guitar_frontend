@@ -35,52 +35,51 @@ class AddGuitarValidation {
         return input === "True";
     }
 
-    static validateEmptyNumberFields(frets: number, year: number): Boolean {
-        try {
-            if (isNaN(frets) || isNaN(year)) {
-                throw new Error(ErrorType.EMPTY_FORM_FIELDS);
-            }
-            return true;
-        } catch (error: any) {
-            console.error('Error validating empty number fields:', error.message);
+    static validateEmptyNumberFields(frets: Number, year: Number): Boolean {
+        if (frets === 0 || year === 0) {
             return false;
         }
+        return true;
     }
 
     static validateEmptyStringFields(stainlessFrets: String, lockingTuners: String, body: String, neck: String, fretboard: String): Boolean {
-        try {
-            if (stainlessFrets.length === 0 || lockingTuners.length === 0 || body.length === 0 || neck.length === 0 || fretboard.length === 0) {
-                throw new Error(ErrorType.EMPTY_FORM_FIELDS);
-            }
-            return true;
-        } catch (error: any) {
+        if (stainlessFrets.length === 0 || lockingTuners.length === 0 || body.length === 0 || neck.length === 0 || fretboard.length === 0) {
             return false;
         }
+        return true;
     }
 
     // CREATE METHOD THAT WILL HANDLE ALL CHECKS AND THROW APPROPRIATE ERRORS
     // ACCEPTANCE CRITERIAS ARE NOT MET
-    static async handleFormSubmission(year: number, brand: String, model: String, numFrets: number, ssFrets: String, lockTuners: String, bodyWood: String, neckWood: String, fretWood: String) {
-        // Check 1
-        this.validateEmptyNumberFields(year, numFrets);
-        // Check 2
-        this.validateEmptyStringFields(ssFrets, lockTuners, bodyWood, neckWood, fretWood);
-        // If all goes well we can complete the information
-        let guitar = {
-            "year": year,
-            "brand": brand,
-            "model": model,
-            "num_frets": numFrets,
-            "ss_frets": this.convertStringToBool(ssFrets),
-            "wood": {
-                "body": bodyWood,
-                "neck": neckWood,
-                "fretboard": fretWood
-            },
-            "locking_tuners": this.convertStringToBool(lockTuners)
+    static async handleFormSubmission(year: Number, brand: String, model: String, numFrets: Number, ssFrets: String, lockTuners: String, bodyWood: String, neckWood: String, fretWood: String): Promise<void> {
+        try {
+            const numFieldsValid = await this.validateEmptyNumberFields(year, numFrets);
+            const strFieldsValid = await this.validateEmptyStringFields(ssFrets, lockTuners, bodyWood, neckWood, fretWood);
+
+            if (!numFieldsValid || !strFieldsValid) {
+                throw new Error(ErrorType.EMPTY_FORM_FIELDS);
+            }
+
+            let guitar = {
+                "year": year,
+                "brand": brand,
+                "model": model,
+                "num_frets": numFrets,
+                "ss_frets": this.convertStringToBool(ssFrets),
+                "wood": {
+                    "body": bodyWood,
+                    "neck": neckWood,
+                    "fretboard": fretWood
+                },
+                "locking_tuners": this.convertStringToBool(lockTuners)
+            }
+            await GuitarAPI.addGuitar(guitar);
+        } catch (error: any) {
+            console.error('Error handling form submission:', error.message);
+            throw error; // Rethrow the error so it can be caught by the calling function
         }
-        await GuitarAPI.addGuitar(guitar);
     }
+
 }
 
 export default AddGuitarValidation;

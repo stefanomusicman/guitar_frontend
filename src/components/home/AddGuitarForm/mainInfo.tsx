@@ -11,11 +11,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 type MainInformationProps = {
-    year: number;
+    year: Number;
     brand: String;
     model: String;
     formSubmitted: Boolean;
-    setYear: (year: number) => void;
+    setYear: (year: Number) => void;
     setBrand: (brand: String) => void;
     setModel: (model: String) => void;
 }

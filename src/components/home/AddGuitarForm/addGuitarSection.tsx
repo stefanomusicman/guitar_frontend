@@ -40,11 +40,11 @@ const AddGuitarSection = () => {
 
     // STATE VARIABLES FOR FOR FORM FIELDS
     // MAIN INFORMATION
-    const [year, setYear] = useState<number>(0);
+    const [year, setYear] = useState<Number>(0);
     const [brand, setBrand] = useState<String>('');
     const [model, setModel] = useState<String>('');
     // HARDWARE/FRET INFORMATION
-    const [numFrets, setNumFrets] = useState<number>(0);
+    const [numFrets, setNumFrets] = useState<Number>(0);
     const [stainlessFrets, setStainlessFrets] = useState<String>('');
     const [lockingTuners, setLockingTuners] = useState<String>('');
     // WOOD INFORMATION
@@ -59,10 +59,10 @@ const AddGuitarSection = () => {
     const [feedbackMessage, setFeedbackMessage] = useState<string>('');
 
     // FUNCTIONS TO PASS INTO INDIVIDUAL COMPONENTS
-    const handleSetYear = (year: number) => setYear(year);
+    const handleSetYear = (year: Number) => setYear(year);
     const handleSetBrand = (brand: String) => setBrand(brand);
     const handleSetModel = (model: String) => setModel(model);
-    const handleSetNumFrets = (num: number) => setNumFrets(num);
+    const handleSetNumFrets = (num: Number) => setNumFrets(num);
     const handleSetSSFrets = (input: String) => setStainlessFrets(input);
     const handleSetTuners = (input: String) => setLockingTuners(input);
     const handleSetBodyWood = (wood: String) => setBodyWood(wood);
@@ -71,26 +71,34 @@ const AddGuitarSection = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // try {
-        //     AddGuitarValidation.handleFormSubmission(
-        //         year,
-        //         brand,
-        //         model,
-        //         numFrets,
-        //         stainlessFrets,
-        //         lockingTuners,
-        //         bodyWood,
-        //         neckWood,
-        //         fretboardWood
-        //     );
-
-        // }
+        try {
+            setError(false);
+            setLoading(true);
+            await AddGuitarValidation.handleFormSubmission(
+                year,
+                brand,
+                model,
+                numFrets,
+                stainlessFrets,
+                lockingTuners,
+                bodyWood,
+                neckWood,
+                fretboardWood
+            );
+            setFeedbackMessage("Guitar has been added successfully!");
+        } catch (error: any) {
+            setError(true);
+            setFeedbackMessage(error.message);
+        } finally {
+            setLoading(false);
+        }
+        setFormSubmitted(true);
     }
 
     return (
         <MainContainer>
             <Typography variant="h6" className={classes.headline}><strong style={{ color: Colors.primaryOrange }}>Add</strong> a <strong style={{ color: Colors.primaryBlue }}>Guitar</strong> to our Directory!</Typography>
-            <form onClick={handleSubmit} className={classes.form}>
+            <form onSubmit={handleSubmit} className={classes.form}>
                 <MainInformation
                     year={year}
                     brand={brand}
