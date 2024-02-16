@@ -69,6 +69,18 @@ const AddGuitarSection = () => {
     const handleSetNeckWood = (wood: String) => setNeckWood(wood);
     const handleSetFretWood = (wood: String) => setFretboardWood(wood);
 
+    const clearFields = () => {
+        setYear(0);
+        setBrand('');
+        setModel('');
+        setNumFrets(0);
+        setStainlessFrets('');
+        setLockingTuners('');
+        setBodyWood('');
+        setNeckWood('');
+        setFretboardWood('');
+    }
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -86,6 +98,7 @@ const AddGuitarSection = () => {
                 fretboardWood
             );
             setFeedbackMessage("Guitar has been added successfully!");
+            clearFields();
         } catch (error: any) {
             setError(true);
             setFeedbackMessage(error.message);
