@@ -1,13 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
 import FormSectionContainer from "../formSectionContainer";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles(() => ({
-    dataList: {
-        width: '200px',
-        // marginRight: isMobile ? '0px' : '15px',
-    },
-}));
 
 type WoodInfoProps = {
     formSubmitted: Boolean;
@@ -20,8 +12,6 @@ type WoodInfoProps = {
 }
 
 const WoodInfo: React.FC<WoodInfoProps> = ({ formSubmitted, bodyWood, neckWood, fretWood, setBodyWood, setFretWood, setNeckWood }) => {
-    const classes = useStyles();
-
     const woodOptions = ['Maple', 'Rosewood', 'Cedar', 'Basswood', 'Ebony', 'Cocobolo', 'Mahogany', 'Alder', 'Bubinga'];
 
     return (
@@ -34,7 +24,7 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ formSubmitted, bodyWood, neckWood, 
                         value={bodyWood}
                         error={formSubmitted && bodyWood === ''}
                         helperText={formSubmitted && bodyWood === '' ? 'Field cannot be empty' : ''}
-                        className={classes.dataList}
+                        sx={{ width: '200px' }}
                         {...params}
                         label="Body"
                         variant="outlined"
@@ -50,7 +40,7 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ formSubmitted, bodyWood, neckWood, 
                         value={neckWood}
                         error={formSubmitted && neckWood === ''}
                         helperText={formSubmitted && neckWood === '' ? 'Field cannot be empty' : ''}
-                        className={classes.dataList}
+                        sx={{ width: '200px' }}
                         {...params}
                         label="Neck"
                         variant="outlined"
@@ -66,7 +56,7 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ formSubmitted, bodyWood, neckWood, 
                         value={fretWood}
                         error={formSubmitted && fretWood === ''}
                         helperText={formSubmitted && fretWood === '' ? 'Field cannot be empty' : ''}
-                        className={classes.dataList}
+                        sx={{ width: '200px' }}
                         {...params}
                         label="Fretboard"
                         variant="outlined"

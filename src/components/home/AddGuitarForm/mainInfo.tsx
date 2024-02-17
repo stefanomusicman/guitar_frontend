@@ -1,14 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
 import FormSectionContainer from "../formSectionContainer";
-import { useEffect } from "react";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles(() => ({
-    dataList: {
-        width: '200px',
-        // marginRight: isMobile ? '0px' : '15px',
-    },
-}));
 
 type MainInformationProps = {
     year: Number;
@@ -21,8 +12,6 @@ type MainInformationProps = {
 }
 
 const MainInformation: React.FC<MainInformationProps> = ({ year, brand, model, formSubmitted, setYear, setBrand, setModel }) => {
-    const classes = useStyles();
-
     const yearOptions: String[] = [];
 
     const currentYear = new Date().getFullYear();
@@ -40,7 +29,7 @@ const MainInformation: React.FC<MainInformationProps> = ({ year, brand, model, f
                         value={year}
                         error={formSubmitted && year === 0}
                         helperText={formSubmitted && year === 0 ? 'Field cannot be empty' : ''}
-                        className={classes.dataList}
+                        sx={{ width: '200px' }}
                         {...params}
                         label="Year"
                         variant="outlined"

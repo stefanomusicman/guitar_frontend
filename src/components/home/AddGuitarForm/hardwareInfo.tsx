@@ -1,13 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
 import FormSectionContainer from "../formSectionContainer";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles(() => ({
-    dataList: {
-        width: '200px',
-        // marginRight: isMobile ? '0px' : '15px',
-    },
-}));
 
 type MainInfoProps = {
     formSubmitted: Boolean;
@@ -20,8 +12,6 @@ type MainInfoProps = {
 }
 
 const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainlessFrets, lockingTuners, setNumFrets, setLockingTuners, setStainlessFrets }) => {
-    const classes = useStyles();
-
     const autoCompleteOptions = ['True', 'False'];
     const fretOptions = ['22', '24'];
 
@@ -35,7 +25,7 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainl
                         value={numFrets}
                         error={formSubmitted && numFrets === 0}
                         helperText={formSubmitted && numFrets === 0 ? 'Field cannot be empty' : ''}
-                        className={classes.dataList}
+                        sx={{ width: '200px' }}
                         {...params}
                         label="Number of Frets"
                         variant="outlined"
@@ -49,7 +39,7 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainl
                         value={stainlessFrets}
                         error={formSubmitted && stainlessFrets === ''}
                         helperText={formSubmitted && stainlessFrets === '' ? 'Field cannot be empty' : ''}
-                        className={classes.dataList}
+                        sx={{ width: '200px' }}
                         {...params}
                         label="Stainless Steel Frets"
                         variant="outlined"
@@ -63,7 +53,7 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainl
                         value={lockingTuners}
                         error={formSubmitted && lockingTuners === ''}
                         helperText={formSubmitted && lockingTuners === '' ? 'Field cannot be empty' : ''}
-                        className={classes.dataList}
+                        sx={{ width: '200px' }}
                         {...params}
                         label="Locking Tuners"
                         variant="outlined"
