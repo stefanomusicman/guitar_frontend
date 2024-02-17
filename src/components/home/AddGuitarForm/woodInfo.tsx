@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Chip, TextField } from "@mui/material";
 import FormSectionContainer from "../formSectionContainer";
 
 type WoodInfoProps = {
@@ -19,6 +19,18 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ formSubmitted, bodyWood, neckWood, 
             <Autocomplete
                 options={woodOptions}
                 onChange={(event, value) => setBodyWood(value as String)}
+                renderOption={(props, option) => {
+                    return (
+                        <li {...props} key={option}>
+                            {option}
+                        </li>
+                    )
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                    return tagValue.map((option, index) => (
+                        <Chip {...getTagProps({ index })} key={option} label={option} />
+                    ))
+                }}
                 renderInput={(params) => (
                     <TextField
                         value={bodyWood}
@@ -35,6 +47,18 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ formSubmitted, bodyWood, neckWood, 
             <Autocomplete
                 options={woodOptions}
                 onChange={(event, value) => setNeckWood(value as String)}
+                renderOption={(props, option) => {
+                    return (
+                        <li {...props} key={option}>
+                            {option}
+                        </li>
+                    )
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                    return tagValue.map((option, index) => (
+                        <Chip {...getTagProps({ index })} key={option} label={option} />
+                    ))
+                }}
                 renderInput={(params) => (
                     <TextField
                         value={neckWood}
@@ -51,6 +75,18 @@ const WoodInfo: React.FC<WoodInfoProps> = ({ formSubmitted, bodyWood, neckWood, 
             <Autocomplete
                 options={woodOptions}
                 onChange={(event, value) => setFretWood(value as String)}
+                renderOption={(props, option) => {
+                    return (
+                        <li {...props} key={option}>
+                            {option}
+                        </li>
+                    )
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                    return tagValue.map((option, index) => (
+                        <Chip {...getTagProps({ index })} key={option} label={option} />
+                    ))
+                }}
                 renderInput={(params) => (
                     <TextField
                         value={fretWood}

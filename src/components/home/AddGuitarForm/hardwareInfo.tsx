@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Chip, TextField } from "@mui/material";
 import FormSectionContainer from "../formSectionContainer";
 
 type MainInfoProps = {
@@ -20,6 +20,18 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainl
             <Autocomplete
                 options={fretOptions}
                 onChange={(event, value) => setNumFrets(Number(value))}
+                renderOption={(props, option) => {
+                    return (
+                        <li {...props} key={option}>
+                            {option}
+                        </li>
+                    )
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                    return tagValue.map((option, index) => (
+                        <Chip {...getTagProps({ index })} key={option} label={option} />
+                    ))
+                }}
                 renderInput={(params) => (
                     <TextField
                         value={numFrets}
@@ -34,6 +46,18 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainl
             <Autocomplete
                 options={autoCompleteOptions}
                 onChange={(event, value) => setStainlessFrets(value as String)}
+                renderOption={(props, option) => {
+                    return (
+                        <li {...props} key={option}>
+                            {option}
+                        </li>
+                    )
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                    return tagValue.map((option, index) => (
+                        <Chip {...getTagProps({ index })} key={option} label={option} />
+                    ))
+                }}
                 renderInput={(params) => (
                     <TextField
                         value={stainlessFrets}
@@ -48,6 +72,18 @@ const HardwareInfo: React.FC<MainInfoProps> = ({ formSubmitted, numFrets, stainl
             <Autocomplete
                 options={autoCompleteOptions}
                 onChange={(event, value) => setLockingTuners(value as String)}
+                renderOption={(props, option) => {
+                    return (
+                        <li {...props} key={option}>
+                            {option}
+                        </li>
+                    )
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                    return tagValue.map((option, index) => (
+                        <Chip {...getTagProps({ index })} key={option} label={option} />
+                    ))
+                }}
                 renderInput={(params) => (
                     <TextField
                         value={lockingTuners}

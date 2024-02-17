@@ -1,5 +1,6 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Chip, TextField } from "@mui/material";
 import FormSectionContainer from "../formSectionContainer";
+import { Key } from "react";
 
 type MainInformationProps = {
     year: Number;
@@ -24,6 +25,18 @@ const MainInformation: React.FC<MainInformationProps> = ({ year, brand, model, f
             <Autocomplete
                 options={yearOptions}
                 onChange={(event, value) => setYear(Number(value))}
+                renderOption={(props, option) => {
+                    return (
+                        <li {...props} key={option as Key}>
+                            {option}
+                        </li>
+                    )
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                    return tagValue.map((option, index) => (
+                        <Chip {...getTagProps({ index })} key={option as Key} label={option} />
+                    ))
+                }}
                 renderInput={(params) => (
                     <TextField
                         value={year}
