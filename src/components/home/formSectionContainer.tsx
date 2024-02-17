@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material"
+import { Grid, Typography, useMediaQuery, useTheme } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 import { ReactNode } from "react";
 
@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
         justifyContent: 'space-evenly',
         alignItems: 'center',
     },
+    formRowMobile: {
+        flexDirection: 'column',
+    },
     formSectionTitle: {
         fontFamily: 'Montserrat, sans-serif',
         fontSize: '1.3rem',
@@ -30,12 +33,14 @@ type FormSectionContainerProps = {
 }
 
 const FormSectionContainer: React.FC<FormSectionContainerProps> = ({ children, title }) => {
+    const theme = useTheme();
+    const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('md'));
     const classes = useStyles();
 
     return (
         <Grid className={classes.formColumn}>
             <Typography className={classes.formSectionTitle}>{title}</Typography>
-            <Grid className={classes.formRow}>
+            <Grid className={`${classes.formRow} ${isMobile ? classes.formRowMobile : ''}`}>
                 {children}
             </Grid>
         </Grid>
