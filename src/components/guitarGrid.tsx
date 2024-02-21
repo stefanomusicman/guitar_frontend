@@ -122,35 +122,7 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                 <DialogContent>
                     <TableContainer>
                         <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell>Number of frets</TableCell>
-                                    <TableCell>{`${selectedGuitar?.num_frets}`}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Stainless Steel Frets</TableCell>
-                                    <TableCell>{`${selectedGuitar?.ss_frets}`}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Locking Tuners</TableCell>
-                                    <TableCell>{`${selectedGuitar?.locking_tuners}`}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Wood</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Body</TableCell>
-                                    <TableCell>{`${selectedGuitar?.wood.body}`}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Neck</TableCell>
-                                    <TableCell>{`${selectedGuitar?.wood.neck}`}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Fretboard</TableCell>
-                                    <TableCell>{`${selectedGuitar?.wood.fretboard}`}</TableCell>
-                                </TableRow>
-                            </TableBody>
+                            <GuitarDetails guitar={selectedGuitar!} />
                         </Table>
                     </TableContainer>
                 </DialogContent>
@@ -161,6 +133,46 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                 {!canFavorite && <Alert severity="error">Must be logged in</Alert>}
             </Dialog>
         </Fragment>
+    );
+}
+
+// ---------------------------------------------------------------------------------------------------------
+
+type GuitarDetailsProps = {
+    guitar: Guitar;
+}
+
+const GuitarDetails: React.FC<GuitarDetailsProps> = ({ guitar }) => {
+    return (
+        <TableBody>
+            <TableRow>
+                <TableCell>Number of frets</TableCell>
+                <TableCell>{`${guitar?.num_frets}`}</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Stainless Steel Frets</TableCell>
+                <TableCell>{`${guitar?.ss_frets}`}</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Locking Tuners</TableCell>
+                <TableCell>{`${guitar?.locking_tuners}`}</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Wood</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Body</TableCell>
+                <TableCell>{`${guitar?.wood.body}`}</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Neck</TableCell>
+                <TableCell>{`${guitar?.wood.neck}`}</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>Fretboard</TableCell>
+                <TableCell>{`${guitar?.wood.fretboard}`}</TableCell>
+            </TableRow>
+        </TableBody>
     );
 }
 
