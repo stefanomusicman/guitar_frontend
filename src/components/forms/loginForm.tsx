@@ -25,6 +25,7 @@ const useStyles = makeStyles(() => ({
     label: {
         marginBottom: '10px',
         fontSize: '1.5rem',
+        fontFamily: 'Montserrat, sans-serif',
     },
     textField: {
         width: '100%',
@@ -103,7 +104,7 @@ const LoginForm = () => {
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography className={classes.title} variant="h6">Login</Typography>
             <Typography className={classes.loginLinkText} variant="body1">Don't have an account? <Link className={classes.link} href={PATH.REGISTER}>Sign Up</Link></Typography>
-            <label className={classes.label}>Email</label>
+            <Typography className={classes.label}>Email</Typography>
             <TextField
                 error={formSubmitted && email.length === 0}
                 helperText={formSubmitted && email.length === 0 ? 'Field cannot be empty' : ''}

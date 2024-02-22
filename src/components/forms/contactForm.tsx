@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
     label: {
         marginBottom: '10px',
         fontSize: '1.5rem',
+        fontFamily: 'Montserrat, sans-serif',
     },
     textField: {
         width: '100%',
@@ -94,7 +95,7 @@ const ContactForm = () => {
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography className={classes.title} variant="h6">Contact</Typography>
             <Typography className={classes.loginLinkText} variant="body1">If you have any questions or suggestions, we'd love to hear them!</Typography>
-            <label className={classes.label}>Email</label>
+            <Typography className={classes.label}>Email</Typography>
             <TextField
                 error={formSubmitted && email.length === 0}
                 helperText={formSubmitted && email.length === 0 ? 'Field cannot be empty' : ''}
@@ -107,7 +108,7 @@ const ContactForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <label className={classes.label}>Name</label>
+            <Typography className={classes.label}>Name</Typography>
             <TextField
                 error={formSubmitted && name.length === 0}
                 helperText={formSubmitted && name.length === 0 ? 'Field cannot be empty' : ''}
@@ -120,7 +121,7 @@ const ContactForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <label className={classes.label}>Message</label>
+            <Typography className={classes.label}>Message</Typography>
             <TextField
                 error={formSubmitted && message.length === 0}
                 helperText={formSubmitted && message.length === 0 ? 'Field cannot be empty' : ''}

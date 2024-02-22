@@ -1,6 +1,6 @@
 'use client';
 import Colors from "@/app/colors";
-import { Autocomplete, Box, Button, Grid, TextField, useMediaQuery, useTheme } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useEffect, useState } from "react";
 import { Guitar } from "../../../types/guitar";
@@ -24,6 +24,7 @@ const useStyles = makeStyles((isMobile: boolean) => ({
         marginBottom: '50px',
         fontSize: '1.5rem',
         textAlign: 'center',
+        fontFamily: 'Montserrat, sans-serif',
     },
     textField: {
         marginRight: isMobile ? '0px' : '15px',
@@ -101,7 +102,7 @@ const SearchSection = () => {
 
     return (
         <MainContainer>
-            <label className={classes.label}>Try Searching for your favorite guitar by <strong style={{ color: Colors.primaryBlue }}>brand</strong> or <strong style={{ color: Colors.primaryOrange }}>model</strong></label>
+            <Typography className={classes.label}>Try Searching for your favorite guitar by <strong style={{ color: Colors.primaryBlue }}>brand</strong> or <strong style={{ color: Colors.primaryOrange }}>model</strong></Typography>
             <Grid spacing={{ xs: 3 }} container className={classes.formContainer}>
                 <Grid item className={classes.formItem} xs={12} md={4}>
                     {/* <input></input> */}

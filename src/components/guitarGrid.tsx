@@ -1,6 +1,6 @@
 import { Alert, Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { Guitar } from "../../types/guitar";
-import { Fragment, Key, useState } from "react";
+import { Fragment, Key, useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Colors from "@/app/colors";
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -61,7 +61,7 @@ const useStyles = makeStyles(() => ({
     favoriteButton: {
         width: '35px',
         height: '35px',
-        color: 'grey',
+        // color: 'grey',
     },
 }));
 
@@ -79,6 +79,9 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
     // Verify if user is signed in
     const isSignedIn = typeof window !== 'undefined' && Cookies.get('signedIn') === 'true';
     const [canFavorite, setCanAddFavorite] = useState<boolean>(true);
+
+    // Set the color of the favorites icon
+    const [favColor, setFavColor] = useState('grey');
 
     const handleOpenModal = (guitar: Guitar) => {
         setOpen(true);
@@ -98,17 +101,24 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
         }
 
         let favorites = await fetchFirebaseFavorites();
-        console.log(favorites.includes(selectedGuitar?.uid as string))
-        favorites.includes(selectedGuitar?.uid as string) ? removeFromFavorites(selectedGuitar?.uid as string) : addToFavorites(selectedGuitar?.uid as string);
+        if (favorites.includes(selectedGuitar?.uid as string)) {
+            removeFromFavorites(selectedGuitar?.uid as string);
+            setFavColor('grey');
+        } else {
+            addToFavorites(selectedGuitar?.uid as string);
+            setFavColor('red');
+        }
     }
 
-    const handleFavButtonColor = async (id: String) => {
-        if (isSignedIn) {
-            const isFavorite: Boolean = await checkIsFavorite(id);
-            return (isFavorite ? "Red" : "Grey");
-        }
-        return "Grey";
-    }
+    useEffect(() => {
+        const updateFavColor = async () => {
+            if (isSignedIn && selectedGuitar?.uid) {
+                const isFavorite = await checkIsFavorite(selectedGuitar?.uid as String);
+                setFavColor(isFavorite ? 'red' : 'grey');
+            }
+        };
+        updateFavColor();
+    }, [isSignedIn, selectedGuitar?.uid]);
 
     return (
         <Fragment>
@@ -134,7 +144,7 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                     </TableContainer>
                 </DialogContent>
                 <DialogActions className={classes.dialogActions}>
-                    <FavoriteIcon onClick={handleFavorite} className={classes.favoriteButton} />
+                    <FavoriteIcon sx={{ color: favColor }} onClick={handleFavorite} className={classes.favoriteButton} />
                     <Button className={classes.button} onClick={handleCloseModal}>Close</Button>
                 </DialogActions>
                 {!canFavorite && <Alert severity="error">Must be logged in</Alert>}

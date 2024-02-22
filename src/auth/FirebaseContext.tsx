@@ -197,7 +197,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             if (userSnap.exists()) {
                 const userFavorites = userSnap.data()?.favorites || [];
-                return userFavorites.contains(favID);
+                return userFavorites.includes(favID);
             }
         } catch (error) {
             console.log("Error getting favortites: ", error);
