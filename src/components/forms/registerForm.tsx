@@ -1,3 +1,4 @@
+'use client';
 import Colors from "@/app/colors";
 import { useAuthContext } from "@/auth/useAuthContext";
 import { PATH } from "@/routes/path";

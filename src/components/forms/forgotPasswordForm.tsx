@@ -1,3 +1,4 @@
+'use client';
 import { makeStyles } from "@mui/styles";
 import { FormEvent, useState } from "react";
 import { Alert, Box, Button, CircularProgress, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
@@ -22,6 +23,7 @@ const useStyles = makeStyles(() => ({
     label: {
         marginBottom: '10px',
         fontSize: '1.5rem',
+        fontFamily: 'Montserrat, sans-serif',
     },
     textField: {
         width: '100%',
@@ -97,7 +99,7 @@ const ForgotPasswordForm = () => {
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography className={classes.title} variant="h6">Forgot Password</Typography>
             <Typography className={classes.loginLinkText} variant="body1">Enter your email and we will send you a recovery email.</Typography>
-            <label className={classes.label}>Email</label>
+            <Typography className={classes.label}>Email</Typography>
             <TextField
                 error={formSubmitted && email.length === 0}
                 helperText={formSubmitted && email.length === 0 ? 'Field cannot be empty' : ''}
