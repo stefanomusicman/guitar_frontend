@@ -1,3 +1,4 @@
+'use client';
 import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ReactNode } from "react";
