@@ -6,4 +6,5 @@ export type FirebaseContextType = {
     addToFavorites: (favoriteID: string) => void;
     removeFromFavorites: (favoriteID: string) => void;
     fetchFirebaseFavorites: () => Promise<string[]>;
+    checkIsFavorite: (favID: String) => Promise<Boolean>;
 }

@@ -74,7 +74,7 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
     const [selectedGuitar, setSelectedGuitar] = useState<Guitar | null>(null);
 
     // Firebase/Auth
-    const { fetchFirebaseFavorites, removeFromFavorites, addToFavorites } = useAuthContext();
+    const { fetchFirebaseFavorites, removeFromFavorites, addToFavorites, checkIsFavorite } = useAuthContext();
 
     // Verify if user is signed in
     const isSignedIn = typeof window !== 'undefined' && Cookies.get('signedIn') === 'true';
@@ -100,7 +100,14 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
         let favorites = await fetchFirebaseFavorites();
         console.log(favorites.includes(selectedGuitar?.uid as string))
         favorites.includes(selectedGuitar?.uid as string) ? removeFromFavorites(selectedGuitar?.uid as string) : addToFavorites(selectedGuitar?.uid as string);
-        console.log(favorites);
+    }
+
+    const handleFavButtonColor = async (id: String) => {
+        if (isSignedIn) {
+            const isFavorite: Boolean = await checkIsFavorite(id);
+            return (isFavorite ? "Red" : "Grey");
+        }
+        return "Grey";
     }
 
     return (

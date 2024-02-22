@@ -184,6 +184,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return [];
     }, []);
 
-    return <AuthContext.Provider value={{ login, register, passwordReset, logout, addToFavorites, removeFromFavorites, fetchFirebaseFavorites }}>{children}</AuthContext.Provider>
+    // Check if a guitar is part of the favorites array
+    const checkIsFavorite = useCallback(async (favID: String): Promise<Boolean> => {
+        const { currentUser } = AUTH;
+        if (!currentUser) {
+            throw new Error('User is not authenticated');
+        }
+
+        try {
+            const userRef = doc(DB, 'users', currentUser.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (userSnap.exists()) {
+                const userFavorites = userSnap.data()?.favorites || [];
+                return userFavorites.contains(favID);
+            }
+        } catch (error) {
+            console.log("Error getting favortites: ", error);
+        }
+
+        return false;
+    }, []);
+
+    return <AuthContext.Provider value={{ login, register, passwordReset, logout, addToFavorites, removeFromFavorites, fetchFirebaseFavorites, checkIsFavorite }}>{children}</AuthContext.Provider>
 
 }
