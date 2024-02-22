@@ -61,7 +61,9 @@ const useStyles = makeStyles(() => ({
     favoriteButton: {
         width: '35px',
         height: '35px',
-        // color: 'grey',
+        '&:hover': {
+            cursor: 'pointer',
+        },
     },
 }));
 
