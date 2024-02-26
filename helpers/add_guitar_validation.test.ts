@@ -24,4 +24,15 @@ describe('check that string is not empty', () => {
     test('not empty string equals to false', () => {
         expect(AddGuitarValidation.verifyEmptyStringField('hello')).toBe(false);
     });
-})
+});
+
+// Test for convertStringToBool function
+describe('convert True or False to boolean value', () => {
+    test('convert string True to true', () => {
+        expect(AddGuitarValidation.convertStringToBool('True')).toBe(true);
+    });
+
+    test('convert string False to false', () => {
+        expect(AddGuitarValidation.convertStringToBool('False')).toBe(false);
+    });
+});
