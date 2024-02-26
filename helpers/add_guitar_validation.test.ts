@@ -55,3 +55,30 @@ describe('validate whether or not field is empty (0)', () => {
         expect(AddGuitarValidation.validateEmptyNumberFields(2000, 22)).toBe(true);
     });
 });
+
+// Test for validateEmptyStringFields function
+describe('check for any empty fields that expect a string', () => {
+    test('first arg is an empty string and equals to false', () => {
+        expect(AddGuitarValidation.validateEmptyStringFields('', 'hello', 'hello', 'hello', 'hello')).toBe(false);
+    });
+
+    test('second arg is an empty string and equals to false', () => {
+        expect(AddGuitarValidation.validateEmptyStringFields('hello', '', 'hello', 'hello', 'hello')).toBe(false);
+    });
+
+    test('third arg is an empty string and equals to false', () => {
+        expect(AddGuitarValidation.validateEmptyStringFields('hello', 'hello', '', 'hello', 'hello')).toBe(false);
+    });
+
+    test('fourth arg is an empty string and equals to false', () => {
+        expect(AddGuitarValidation.validateEmptyStringFields('hello', 'hello', 'hello', '', 'hello')).toBe(false);
+    });
+
+    test('fifth arg is an empty string and equals to false', () => {
+        expect(AddGuitarValidation.validateEmptyStringFields('hello', 'hello', 'hello', 'hello', '')).toBe(false);
+    });
+
+    test('all string are non empty values and equals to true', () => {
+        expect(AddGuitarValidation.validateEmptyStringFields('hello', 'hello', 'hello', 'hello', 'hello')).toBe(true);
+    });
+});
