@@ -36,3 +36,22 @@ describe('convert True or False to boolean value', () => {
         expect(AddGuitarValidation.convertStringToBool('False')).toBe(false);
     });
 });
+
+// Test for validateEmptyNumberFields function
+describe('validate whether or not field is empty (0)', () => {
+    test('first arg is 0 and equals to false', () => {
+        expect(AddGuitarValidation.validateEmptyNumberFields(0, 22)).toBe(false);
+    });
+
+    test('second arg is 0 and equals to false', () => {
+        expect(AddGuitarValidation.validateEmptyNumberFields(22, 0)).toBe(false);
+    });
+
+    test('both args are 0 and equals to false', () => {
+        expect(AddGuitarValidation.validateEmptyNumberFields(0, 0)).toBe(false);
+    });
+
+    test('both args are not 0 and equals to true', () => {
+        expect(AddGuitarValidation.validateEmptyNumberFields(2000, 22)).toBe(true);
+    });
+});
