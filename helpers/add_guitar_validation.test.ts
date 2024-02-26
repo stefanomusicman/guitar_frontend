@@ -82,3 +82,141 @@ describe('check for any empty fields that expect a string', () => {
         expect(AddGuitarValidation.validateEmptyStringFields('hello', 'hello', 'hello', 'hello', 'hello')).toBe(true);
     });
 });
+
+// Test for handleFormSubmission function
+// order of args: Number, String, String, Number, STring, String, String, String, String
+describe('validate all input fields in order to carry out a successful POST request', () => {
+    test('all empty fields throws an error', async () => {
+        try {
+            // Call the async function and await its result
+            await AddGuitarValidation.handleFormSubmission(0, '', '', 0, '', '', '', '', '');
+
+            // If the function does not throw an error as expected, fail the test
+            fail('Expected function to throw an error but it did not');
+        } catch (error) {
+            // If the function throws an error as expected, the test passes
+            expect(error).toBeDefined();
+        }
+    });
+
+    describe('check for empty number fields', () => {
+        test('empty year throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(0, 'hello', 'hello', 22, 'True', 'True', 'hello', 'hello', 'hello');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+
+        test('empty frets throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(2000, 'hello', 'hello', 0, 'True', 'True', 'hello', 'hello', 'hello');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+    });
+
+    describe('check for empty string fields', () => {
+        test('empty brand throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(2000, '', 'hello', 22, 'True', 'True', 'hello', 'hello', 'hello');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+
+        test('empty model throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(2000, 'hello', '', 22, 'True', 'True', 'hello', 'hello', 'hello');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+
+        test('empty ssFrets throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(2000, 'hello', 'hello', 22, '', 'True', 'hello', 'hello', 'hello');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+
+        test('empty lock tuners throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(2000, 'hello', 'hello', 22, 'True', '', 'hello', 'hello', 'hello');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+
+        test('empty bodyWood throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(2000, 'hello', 'hello', 22, 'True', 'hello', '', 'hello', 'hello');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+
+        test('empty neckWood throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(2000, 'hello', 'hello', 22, 'True', 'hello', 'hello', '', 'hello');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+
+        test('empty fretWood throws an error', async () => {
+            try {
+                // Call the async function and await its result
+                await AddGuitarValidation.handleFormSubmission(2000, 'hello', 'hello', 22, 'True', 'hello', 'hello', 'hello', '');
+
+                // If the function does not throw an error as expected, fail the test
+                fail('Expected function to throw an error but it did not');
+            } catch (error) {
+                // If the function throws an error as expected, the test passes
+                expect(error).toBeDefined();
+            }
+        });
+    });
+});

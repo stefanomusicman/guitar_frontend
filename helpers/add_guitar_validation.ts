@@ -75,8 +75,8 @@ class AddGuitarValidation {
             }
             await GuitarAPI.addGuitar(guitar);
         } catch (error: any) {
-            console.error('Error handling form submission:', error.message);
-            throw error; // Rethrow the error so it can be caught by the calling function
+            // Rethrow the error so it can be caught by the calling function
+            throw error;
         }
     }
 
