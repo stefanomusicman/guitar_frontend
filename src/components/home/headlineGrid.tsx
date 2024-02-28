@@ -1,6 +1,5 @@
 import Colors from "@/app/colors";
 import { Card, CardContent, Grid, Typography } from "@mui/material"
-import { makeStyles } from "@mui/styles";
 import { Key } from "react";
 
 type CardInfo = {
@@ -9,28 +8,27 @@ type CardInfo = {
     description: String;
 }
 
-const useStyles = makeStyles(() => ({
-    main: {
-        marginBottom: '3em',
-    },
-    card: {
-        height: '12em',
-        borderRadius: '15px',
-        padding: '15px 15px'
-    },
-    title: {
-        color: Colors.primaryBlue,
-        fontFamily: 'Montserrat, sans-serif',
-        fontWeight: 'bold',
-    },
-    description: {
-        fontFamily: 'Montserrat, sans-serif',
-    }
-}));
+const main = {
+    marginBottom: '3em',
+}
+
+const card = {
+    height: '12em',
+    borderRadius: '15px',
+    padding: '15px 15px'
+}
+
+const title = {
+    color: Colors.primaryBlue,
+    fontFamily: 'Montserrat, sans-serif',
+    fontWeight: 'bold',
+}
+
+const description = {
+    fontFamily: 'Montserrat, sans-serif',
+}
 
 const HeadlineGrid = () => {
-    const classes = useStyles();
-
     const info: CardInfo[] = [
         {
             id: 1,
@@ -51,15 +49,15 @@ const HeadlineGrid = () => {
 
 
     return (
-        <Grid className={classes.main} container spacing={{ xs: 3, sm: 4, md: 8 }}>
+        <Grid sx={main} container spacing={{ xs: 3, sm: 4, md: 8 }}>
             {info.map((cardInfo) => (
                 <Grid item xs={12} md={4} key={cardInfo.id}>
-                    <Card elevation={0} className={classes.card}>
+                    <Card elevation={0} sx={card}>
                         <CardContent>
-                            <Typography className={classes.title} variant="h6" gutterBottom>
+                            <Typography sx={title} variant="h6" gutterBottom>
                                 {cardInfo.title}
                             </Typography>
-                            <Typography className={classes.description} color="textSecondary">
+                            <Typography sx={description} color="textSecondary">
                                 {cardInfo.description}
                             </Typography>
                         </CardContent>

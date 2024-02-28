@@ -1,7 +1,6 @@
 import { Alert, Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { Guitar } from "../../types/guitar";
 import { Fragment, Key, useEffect, useState } from "react";
-import { makeStyles } from "@mui/styles";
 import Colors from "@/app/colors";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useAuthContext } from "@/auth/useAuthContext";
@@ -11,65 +10,60 @@ type GuitarGridProps = {
     guitars: Guitar[];
 }
 
-const useStyles = makeStyles(() => ({
-    resultsContainer: {
-        width: '75vw',
-        height: '75vh',
-        backgroundColor: 'white',
-        borderRadius: '10px',
-        display: 'flex',
-        overflowX: 'auto',
-        padding: '10px',
+const resultsContainer = {
+    width: '75vw',
+    height: '75vh',
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    display: 'flex',
+    overflowX: 'auto',
+    padding: '10px',
+};
+
+const card = {
+    height: '17em',
+    width: '17em',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '10px',
+    borderRadius: '10px',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+    '&:hover': {
+        cursor: 'pointer',
+    }
+};
+
+const cardText = {
+    fontFamily: 'Montserrat, sans-serif',
+    textAlign: 'center',
+}
+
+const button = {
+    borderRadius: '10px',
+    padding: '10px 20px',
+    backgroundColor: Colors.primaryBlue,
+    fontFamily: 'Montserrat, sans-serif',
+    color: 'white',
+    transition: 'background-color 0.3s',
+    '&:hover': {
+        backgroundColor: Colors.primaryOrange,
     },
-    card: {
-        height: '17em',
-        width: '17em',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: '10px',
-        borderRadius: '10px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-        '&:hover': {
-            cursor: 'pointer',
-        }
-    },
-    cardText: {
-        fontFamily: 'Montserrat, sans-serif',
-        textAlign: 'center',
-    },
-    button: {
-        borderRadius: '10px',
-        padding: '10px 20px',
-        backgroundColor: Colors.primaryBlue,
-        fontFamily: 'Montserrat, sans-serif',
-        color: 'white',
-        transition: 'background-color 0.3s',
-        '&:hover': {
-            backgroundColor: Colors.primaryOrange,
-        },
-    },
-    modal: {
-        padding: '25px',
-    },
-    dialogActions: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-    },
-    favoriteButton: {
-        width: '35px',
-        height: '35px',
-        '&:hover': {
-            cursor: 'pointer',
-        },
-    },
-}));
+}
+
+const modal = {
+    padding: '25px',
+    borderRadius: '10px',
+}
+
+const dialogActions = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+}
 
 const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
-    const classes = useStyles();
-
     // Controlling modal
     const [open, setOpen] = useState<boolean>(false);
     // Storing the selected guitar
@@ -124,19 +118,19 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
 
     return (
         <Fragment>
-            <Grid container direction="row" spacing={0} justifyContent="center" className={classes.resultsContainer}>
+            <Grid container direction="row" spacing={0} justifyContent="center" sx={resultsContainer}>
                 {guitars.map((guitar) => (
                     <Grid xs={12} sm={6} md={4} lg={3} item sx={{ display: 'flex', justifyContent: 'center' }} key={guitar.uid as Key}>
-                        <Card elevation={0} className={classes.card} onClick={() => handleOpenModal(guitar)}>
+                        <Card elevation={0} sx={card} onClick={() => handleOpenModal(guitar)}>
                             <CardContent>
-                                <Typography className={classes.cardText}>{`${guitar.year} ${guitar.brand} ${guitar.model}`}</Typography>
+                                <Typography sx={cardText}>{`${guitar.year} ${guitar.brand} ${guitar.model}`}</Typography>
                             </CardContent>
                         </Card>
                     </Grid>
                 ))}
             </Grid>
             {/* Dialog for displaying the details of the individual guitar */}
-            <Dialog classes={{ paper: classes.modal }} open={open} onClose={handleCloseModal}>
+            <Dialog PaperProps={{ sx: modal }} open={open} onClose={handleCloseModal}>
                 <DialogTitle>{`${selectedGuitar?.year} ${selectedGuitar?.brand} ${selectedGuitar?.model}`}</DialogTitle>
                 <DialogContent>
                     <TableContainer>
@@ -145,9 +139,17 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
                         </Table>
                     </TableContainer>
                 </DialogContent>
-                <DialogActions className={classes.dialogActions}>
-                    <FavoriteIcon sx={{ color: favColor }} onClick={handleFavorite} className={classes.favoriteButton} />
-                    <Button className={classes.button} onClick={handleCloseModal}>Close</Button>
+                <DialogActions sx={dialogActions}>
+                    <FavoriteIcon
+                        sx={{
+                            color: favColor, width: '35px',
+                            height: '35px',
+                            '&:hover': {
+                                cursor: 'pointer',
+                            },
+                        }}
+                        onClick={handleFavorite} />
+                    <Button sx={button} onClick={handleCloseModal}>Close</Button>
                 </DialogActions>
                 {!canFavorite && <Alert severity="error">Must be logged in</Alert>}
             </Dialog>

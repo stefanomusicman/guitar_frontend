@@ -4,48 +4,34 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PeopleIcon from '@mui/icons-material/People';
 import Link from "next/link";
 import Colors from "@/app/colors";
-import { makeStyles } from "@mui/styles";
 import { PATH } from "@/routes/path";
 
-const useStyles = makeStyles(() => ({
-    contentContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        borderRadius: '10px',
-        padding: '30px',
-    },
-    iconContainer: {
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-evenly',
-        margin: '2em 0em',
-    },
-    icon: {
-        color: Colors.primaryBlue
-    },
-    text: {
-        fontFamily: 'Montserrat, sans-serif',
-        textAlign: 'center',
-        lineHeight: '2',
-        marginBottom: '1.2em',
-    },
-    loginLinkText: {
-        fontFamily: 'Montserrat, sans-serif',
-        color: 'grey',
-        paddingBottom: '1em',
-        textAlign: 'center',
-    },
-    link: {
-        color: Colors.primaryBlue
-    }
-}));
+const iconContainer = {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    margin: '2em 0em',
+}
+
+const copy = {
+    fontFamily: 'Montserrat, sans-serif',
+    textAlign: 'center',
+    lineHeight: '2',
+    marginBottom: '1.2em',
+}
+
+const loginLinkText = {
+    fontFamily: 'Montserrat, sans-serif',
+    color: 'grey',
+    paddingBottom: '1em',
+    textAlign: 'center',
+}
+
+const link = {
+    color: Colors.primaryBlue
+}
 
 const AbountContent = () => {
-    const classes = useStyles();
-
     const theme = useTheme();
     const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('lg'));
     const containerWidth: string = isMobile ? '90%' : '45%';
@@ -59,14 +45,24 @@ const AbountContent = () => {
     );
 
     return (
-        <Box className={classes.contentContainer} sx={{ width: containerWidth }}>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'white',
+                borderRadius: '10px',
+                padding: '30px',
+                width: containerWidth
+            }}>
             {/* Grid for the Icons */}
-            <Box className={classes.iconContainer}>
-                <PeopleIcon sx={{ width: iconSize, height: iconSize }} className={classes.icon} />
-                <MenuBookIcon sx={{ width: iconSize, height: iconSize }} className={classes.icon} />
+            <Box sx={iconContainer}>
+                <PeopleIcon sx={{ width: iconSize, height: iconSize, color: Colors.primaryBlue }} />
+                <MenuBookIcon sx={{ width: iconSize, height: iconSize, color: Colors.primaryBlue }} />
             </Box>
-            <Typography style={{ fontSize: fontSize }} className={classes.text}>{text}</Typography>
-            <Typography style={{ fontSize: fontSize }} className={classes.loginLinkText} variant="body1">Have a question or maybe a suggestion? <Link className={classes.link} href={PATH.CONTACT}>Contact Us!</Link></Typography>
+            <Typography style={{ fontSize: fontSize }} sx={copy}>{text}</Typography>
+            <Typography style={{ fontSize: fontSize }} sx={loginLinkText} variant="body1">Have a question or maybe a suggestion? <Link style={link} href={PATH.CONTACT}>Contact Us!</Link></Typography>
         </Box>
     )
 }

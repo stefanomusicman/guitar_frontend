@@ -1,6 +1,5 @@
 import { Alert, Box, Button, CircularProgress, Typography } from "@mui/material";
 import MainContainer from "../mainContainer";
-import { makeStyles } from "@mui/styles";
 import Colors from "@/app/colors";
 import { FormEvent, useState } from "react";
 import MainInformation from "./mainInfo";
@@ -8,36 +7,27 @@ import HardwareInfo from "./hardwareInfo";
 import WoodInfo from "./woodInfo";
 import AddGuitarValidation from "../../../../helpers/add_guitar_validation";
 
-const useStyles = makeStyles(() => ({
-    form: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    headline: {
-        fontFamily: 'Montserrat, sans-serif',
-        fontSize: '1.5rem',
-        marginBottom: '1em',
-    },
-    buttonBox: {
-        width: '85%',
-        display: 'flex',
-        justifyContent: 'end',
-        alignItems: 'center',
-    },
-    button: {
-        borderRadius: '10px',
-        padding: '10px 20px',
-        backgroundColor: Colors.primaryBlue,
-        fontFamily: 'Montserrat, sans-serif',
-    },
-}));
+const headline = {
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1.5rem',
+    marginBottom: '1em',
+}
+
+const buttonBox = {
+    width: '85%',
+    display: 'flex',
+    justifyContent: 'end',
+    alignItems: 'center',
+}
+
+const button = {
+    borderRadius: '10px',
+    padding: '10px 20px',
+    backgroundColor: Colors.primaryBlue,
+    fontFamily: 'Montserrat, sans-serif',
+}
 
 const AddGuitarSection = () => {
-    const classes = useStyles();
-
     // STATE VARIABLES FOR FOR FORM FIELDS
     // MAIN INFORMATION
     const [year, setYear] = useState<Number>(0);
@@ -110,8 +100,16 @@ const AddGuitarSection = () => {
 
     return (
         <MainContainer>
-            <Typography variant="h6" className={classes.headline}><strong style={{ color: Colors.primaryOrange }}>Add</strong> a <strong style={{ color: Colors.primaryBlue }}>Guitar</strong> to our Directory!</Typography>
-            <form onSubmit={handleSubmit} className={classes.form}>
+            <Typography variant="h6" sx={headline}><strong style={{ color: Colors.primaryOrange }}>Add</strong> a <strong style={{ color: Colors.primaryBlue }}>Guitar</strong> to our Directory!</Typography>
+            <form
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                onSubmit={handleSubmit}>
                 <MainInformation
                     year={year}
                     brand={brand}
@@ -136,10 +134,10 @@ const AddGuitarSection = () => {
                     setBodyWood={handleSetBodyWood}
                     setFretWood={handleSetFretWood}
                     setNeckWood={handleSetNeckWood} />
-                <Box className={classes.buttonBox}>
+                <Box sx={buttonBox}>
                     {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
                     {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
-                    <Button type="submit" className={classes.button} disableElevation variant="contained">Add Guitar</Button>
+                    <Button type="submit" sx={button} disableElevation variant="contained">Add Guitar</Button>
                 </Box>
             </form>
         </MainContainer>

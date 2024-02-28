@@ -1,67 +1,37 @@
 'use client';
 import Colors from "@/app/colors";
 import { Autocomplete, Box, Button, Grid, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { useEffect, useState } from "react";
 import { Guitar } from "../../../types/guitar";
 import GuitarAPI from "../../../helpers/guitar_api_functions";
 import GuitarGrid from "../guitarGrid";
 import MainContainer from "./mainContainer";
 
-const useStyles = makeStyles((isMobile: boolean) => ({
-    formContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: '50px',
-    },
-    formItem: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    label: {
-        marginBottom: '50px',
-        fontSize: '1.5rem',
-        textAlign: 'center',
-        fontFamily: 'Montserrat, sans-serif',
-    },
-    textField: {
-        marginRight: isMobile ? '0px' : '15px',
-    },
-    dataList: {
-        width: '200px',
-        marginRight: isMobile ? '0px' : '15px',
-    },
-    button: {
-        borderRadius: '10px',
-        padding: '15px 30px',
-        backgroundColor: Colors.primaryBlue,
-    },
-    resultsContainer: {
-        width: '75vw',
-        height: '75vh',
-        backgroundColor: 'white',
-        borderRadius: '10px',
-        display: 'flex',
-        overflowX: 'auto',
-        padding: '10px',
-    },
-    card: {
-        height: '17em',
-        width: '17em',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: '10px',
-        borderRadius: '10px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-    },
-    cardText: {
-        fontFamily: 'Montserrat, sans-serif',
-        textAlign: 'center',
-    },
-}));
+const formContainer = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '50px',
+}
+
+const formItem = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+}
+
+const label = {
+    marginBottom: '50px',
+    fontSize: '1.5rem',
+    textAlign: 'center',
+    fontFamily: 'Montserrat, sans-serif',
+}
+
+const button = {
+    borderRadius: '10px',
+    padding: '15px 30px',
+    backgroundColor: Colors.primaryBlue,
+}
 
 const SearchSection = () => {
 
@@ -72,7 +42,6 @@ const SearchSection = () => {
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const classes = useStyles(isMobile);
     const formWidth = isMobile ? '90%' : '45%';
 
     const options = ['Brand', 'Model'];
@@ -102,13 +71,13 @@ const SearchSection = () => {
 
     return (
         <MainContainer>
-            <Typography className={classes.label}>Try Searching for your favorite guitar by <strong style={{ color: Colors.primaryBlue }}>brand</strong> or <strong style={{ color: Colors.primaryOrange }}>model</strong></Typography>
-            <Grid spacing={{ xs: 3 }} container className={classes.formContainer}>
-                <Grid item className={classes.formItem} xs={12} md={4}>
+            <Typography sx={label}>Try Searching for your favorite guitar by <strong style={{ color: Colors.primaryBlue }}>brand</strong> or <strong style={{ color: Colors.primaryOrange }}>model</strong></Typography>
+            <Grid spacing={{ xs: 3 }} container sx={formContainer}>
+                <Grid item sx={formItem} xs={12} md={4}>
                     {/* <input></input> */}
                     <TextField
                         value={searchTerm}
-                        className={classes.textField}
+                        sx={{ marginRight: isMobile ? '0px' : '15px' }}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         id="searchTerm"
                         label="Enter a brand or model"
@@ -116,7 +85,7 @@ const SearchSection = () => {
                         InputProps={{ sx: { borderRadius: '10px' } }}
                     />
                 </Grid>
-                <Grid item className={classes.formItem} xs={12} md={4}>
+                <Grid item sx={formItem} xs={12} md={4}>
                     <Autocomplete
                         options={options}
                         onChange={(event, value) => setSearchTermFilter(value)}
@@ -124,7 +93,10 @@ const SearchSection = () => {
                             <TextField
                                 error={formSubmitted && searchFilter === ''}
                                 helperText={formSubmitted && searchFilter === '' ? 'Field cannot be empty' : ''}
-                                className={classes.dataList}
+                                sx={{
+                                    width: '200px',
+                                    marginRight: isMobile ? '0px' : '15px',
+                                }}
                                 {...params}
                                 label="Choose an option"
                                 variant="outlined"
@@ -133,8 +105,8 @@ const SearchSection = () => {
                         )}
                     />
                 </Grid>
-                <Grid item className={classes.formItem} xs={12} sm={6} md={3}>
-                    <Button onClick={handleSearch} disableElevation className={classes.button} variant="contained">Search</Button>
+                <Grid item sx={formItem} xs={12} sm={6} md={3}>
+                    <Button onClick={handleSearch} disableElevation sx={button} variant="contained">Search</Button>
                 </Grid>
             </Grid>
             {/* Grid that will show all the results */}
