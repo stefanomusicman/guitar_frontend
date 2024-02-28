@@ -78,7 +78,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 throw new Error(ErrorType.INVALID_CREDENTIALS);
             }
         }
-    }, [authenticated, push]);
+    }, [push]);
 
     // REGISTER
     const register = useCallback(async (userName: string, email: string, password: string) => {
@@ -118,7 +118,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         Cookies.remove('signedIn');
         push('/');
         window.location.reload();
-    }, []);
+    }, [push]);
 
     // ADD A GUITAR ID TO FAVORITES FIELD
     const addToFavorites = useCallback(async (favoriteID: string) => {

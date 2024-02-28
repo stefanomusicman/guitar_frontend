@@ -21,7 +21,7 @@ const useFetchFavorites = () => {
                 });
         }
         fetchFavorites();
-    }, []);
+    }, [fetchFirebaseFavorites]);
 
     return favorites;
 }

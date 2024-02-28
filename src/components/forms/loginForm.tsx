@@ -108,7 +108,7 @@ const LoginForm = () => {
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography sx={title} variant="h6">Login</Typography>
-            <Typography sx={loginLinkText} variant="body1">Don't have an account? <Link style={link} href={PATH.REGISTER}>Sign Up</Link></Typography>
+            <Typography sx={loginLinkText} variant="body1">Don&apos;t have an account? <Link style={link} href={PATH.REGISTER}>Sign Up</Link></Typography>
             <Typography sx={label}>Email</Typography>
             <TextField
                 error={formSubmitted && email.length === 0}

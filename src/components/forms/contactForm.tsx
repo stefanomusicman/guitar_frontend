@@ -92,7 +92,7 @@ const ContactForm = () => {
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
             <Typography sx={title} variant="h6">Contact</Typography>
-            <Typography sx={loginLinkText} variant="body1">If you have any questions or suggestions, we'd love to hear them!</Typography>
+            <Typography sx={loginLinkText} variant="body1">If you have any questions or suggestions, we&apos;d love to hear them!</Typography>
             <Typography sx={label}>Email</Typography>
             <TextField
                 error={formSubmitted && email.length === 0}

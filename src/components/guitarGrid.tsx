@@ -114,7 +114,7 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
             }
         };
         updateFavColor();
-    }, [isSignedIn, selectedGuitar?.uid]);
+    }, [isSignedIn, selectedGuitar?.uid, checkIsFavorite]);
 
     return (
         <Fragment>
