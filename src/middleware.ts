@@ -3,7 +3,7 @@ import { PATH } from "./routes/path";
 
 export function middleware(req: NextRequest) {
     const cookie = req.cookies.get('signedIn');
-    const baseUrl = 'http://localhost:3000';
+    const baseUrl = process.env.FRONTEND_BASE_URL;
     const url = req.url;
 
     // Protect the FAVORITES route

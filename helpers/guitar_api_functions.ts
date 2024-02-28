@@ -1,7 +1,7 @@
 import { Guitar } from "../types/guitar";
 
 class GuitarAPI {
-    private static baseURL: string = "http://127.0.0.1:5000/v0/guitars"
+    private static baseURL = process.env.API_URL;
 
     // ADD A GUITAR
     static async addGuitar<T>(guitarData: Record<string, any>): Promise<T> {
