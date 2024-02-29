@@ -8,7 +8,7 @@ const nextConfig = {
         FIREBASE_MESSAGING_SENDER_ID: "85838929404",
         FIREBASE_APP_ID: "1:85838929404:web:4ca2adfdd8a9fee087e679",
         API_URL: "https://guitar-api-fr2rg.ondigitalocean.app/v0/guitars",
-        FRONTEND_BASE_URL: "http://localhost:3000",
+        FRONTEND_BASE_URL: "https://guitar-frontend.vercel.app",
     }
 }
 
