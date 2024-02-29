@@ -31,6 +31,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { push } = useRouter();
 
     const initialize = useCallback(() => {
+        console.log(FIREBASE_API);
         try {
             onAuthStateChanged(AUTH, async (user) => {
                 if (user) {
