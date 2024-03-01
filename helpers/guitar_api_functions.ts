@@ -1,7 +1,7 @@
 import { Guitar } from "../types/guitar";
 
 class GuitarAPI {
-    private static baseURL = process.env.API_URL;
+    private static baseURL = process.env.NEXT_PUBLIC_API_URL;
 
     // ADD A GUITAR
     static async addGuitar<T>(guitarData: Record<string, any>): Promise<T> {
