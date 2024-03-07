@@ -5,6 +5,8 @@ import Colors from "@/app/colors";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useAuthContext } from "@/auth/useAuthContext";
 import Cookies from "js-cookie";
+import SortableList, { SortableItem, SortableKnob } from 'react-easy-sort'
+import arrayMove from 'array-move'
 
 type GuitarGridProps = {
     guitars: Guitar[];
@@ -69,6 +71,9 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
     // Storing the selected guitar
     const [selectedGuitar, setSelectedGuitar] = useState<Guitar | null>(null);
 
+    // Saving guitars into a state
+    const [allGuitars, setAllGuitars] = useState<Guitar[]>([]);
+
     // Firebase/Auth
     const { fetchFirebaseFavorites, removeFromFavorites, addToFavorites, checkIsFavorite } = useAuthContext();
 
@@ -114,20 +119,36 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
             }
         };
         updateFavColor();
+        console.log('All guitars: ', allGuitars);
     }, [isSignedIn, selectedGuitar?.uid, checkIsFavorite]);
+
+    useEffect(() => {
+        if (guitars.length > 0) {
+            setAllGuitars(guitars);
+        }
+    }, [guitars]);
+
+    // handle the sorting of guitars when dragging and dropping
+    const onSortEnd = (oldIndex: number, newIndex: number) => {
+        setAllGuitars((array) => arrayMove(array, oldIndex, newIndex));
+    }
 
     return (
         <Fragment>
             <Grid container direction="row" spacing={0} justifyContent="center" sx={resultsContainer}>
-                {guitars.map((guitar) => (
-                    <Grid xs={12} sm={6} md={4} lg={3} item sx={{ display: 'flex', justifyContent: 'center' }} key={guitar.uid as Key}>
-                        <Card elevation={0} sx={card} onClick={() => handleOpenModal(guitar)}>
-                            <CardContent>
-                                <Typography sx={cardText}>{`${guitar.year} ${guitar.brand} ${guitar.model}`}</Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
+                <SortableList className="list" onSortEnd={onSortEnd}>
+                    {allGuitars.map((guitar) => (
+                        <SortableItem key={guitar.uid as Key}>
+                            <Grid item sx={{ display: 'flex', justifyContent: 'center' }} key={guitar.uid as Key}>
+                                <Card className="guitar_card" elevation={0} onClick={() => handleOpenModal(guitar)}>
+                                    <CardContent>
+                                        <Typography sx={cardText}>{`${guitar.year} ${guitar.brand} ${guitar.model}`}</Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        </SortableItem>
+                    ))}
+                </SortableList>
             </Grid>
             {/* Dialog for displaying the details of the individual guitar */}
             <Dialog PaperProps={{ sx: modal }} open={open} onClose={handleCloseModal}>
