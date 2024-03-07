@@ -44,3 +44,21 @@ a {
 .guitar_card:hover {
   cursor: pointer;
 }
+
+@media(max-width: 1600px) {
+  .list {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media(max-width: 1250px) {
+  .list {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media(max-width: 800px) {
+  .list {
+    grid-template-columns: auto;
+  }
+}
