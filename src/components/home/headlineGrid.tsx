@@ -1,5 +1,6 @@
+'use client';
 import Colors from "@/app/colors";
-import { Card, CardContent, Grid, Typography } from "@mui/material"
+import { Card, CardContent, Grid, Typography, useMediaQuery, useTheme } from "@mui/material"
 import { Key } from "react";
 
 type CardInfo = {
@@ -24,11 +25,26 @@ const title = {
     fontWeight: 'bold',
 }
 
+const mobileTitle = {
+    color: Colors.primaryBlue,
+    fontFamily: 'Montserrat, sans-serif',
+    fontWeight: 'bold',
+    fontSize: '1rem',
+}
+
 const description = {
     fontFamily: 'Montserrat, sans-serif',
 }
 
+const mobileDescription = {
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '0.85rem',
+}
+
 const HeadlineGrid = () => {
+    const theme = useTheme();
+    const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('md'));
+
     const info: CardInfo[] = [
         {
             id: 1,
@@ -54,10 +70,10 @@ const HeadlineGrid = () => {
                 <Grid item xs={12} md={4} key={cardInfo.id}>
                     <Card elevation={0} sx={card}>
                         <CardContent>
-                            <Typography sx={title} variant="h6" gutterBottom>
+                            <Typography sx={isMobile ? mobileTitle : title} variant="h6" gutterBottom>
                                 {cardInfo.title}
                             </Typography>
-                            <Typography sx={description} color="textSecondary">
+                            <Typography sx={isMobile ? mobileDescription : description} color="textSecondary">
                                 {cardInfo.description}
                             </Typography>
                         </CardContent>

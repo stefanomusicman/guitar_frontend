@@ -16,7 +16,7 @@ const Headline = () => {
     const theme = useTheme();
     const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('md'));
 
-    const fontSize: string = isMobile ? '2rem' : '2.5rem';
+    const fontSize: string = isMobile ? '1.5rem' : '2.5rem';
 
     return (
         <Box sx={headlineBox}>

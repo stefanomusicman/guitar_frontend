@@ -1,4 +1,4 @@
-import { Alert, Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
+import { Alert, Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Guitar } from "../../types/guitar";
 import { Fragment, Key, useEffect, useState } from "react";
 import Colors from "@/app/colors";
@@ -21,6 +21,16 @@ const resultsContainer = {
     overflowX: 'auto',
     padding: '10px',
 };
+
+const mobileResultsContainer = {
+    width: '90vw',
+    height: '75vh',
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    display: 'flex',
+    overflowX: 'auto',
+    padding: '10px',
+}
 
 const card = {
     height: '17em',
@@ -66,6 +76,9 @@ const dialogActions = {
 }
 
 const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
+    const theme = useTheme();
+    const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('md'));
+
     // Controlling modal
     const [open, setOpen] = useState<boolean>(false);
     // Storing the selected guitar
@@ -135,7 +148,7 @@ const GuitarGrid: React.FC<GuitarGridProps> = ({ guitars }) => {
 
     return (
         <Fragment>
-            <Grid container direction="row" spacing={0} justifyContent="center" sx={resultsContainer}>
+            <Grid container direction="row" spacing={0} justifyContent="center" sx={isMobile ? mobileResultsContainer : resultsContainer}>
                 <SortableList className="list" onSortEnd={onSortEnd}>
                     {allGuitars.map((guitar) => (
                         <SortableItem key={guitar.uid as Key}>

@@ -144,7 +144,9 @@ const MobileNavBar = () => {
             <AppBar elevation={0} sx={navBar} position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={name}>
-                        Guitar Directory
+                        <Link href={PATH.HOME}>
+                            Guitar Directory
+                        </Link>
                     </Typography>
                     <IconButton
                         onClick={handleToggleDrawer}

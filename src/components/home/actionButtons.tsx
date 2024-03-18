@@ -15,7 +15,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ scrollToSearchSection, sc
     return (
         <Box
             sx={{
-                width: isMobile ? '75%' : '35%', display: 'flex',
+                width: isMobile ? '85%' : '35%', display: 'flex',
                 justifyContent: 'space-around',
                 alignItems: 'center',
                 marginTop: '5em',
