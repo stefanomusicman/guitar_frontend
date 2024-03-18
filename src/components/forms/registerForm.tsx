@@ -19,6 +19,12 @@ const label = {
     fontFamily: 'Montserrat, sans-serif',
 }
 
+const mobileLabel = {
+    marginBottom: '10px',
+    fontSize: '1.2rem',
+    fontFamily: 'Montserrat, sans-serif',
+}
+
 const textField = {
     width: '100%',
     paddingBottom: '20px',
@@ -39,9 +45,23 @@ const title = {
     marginBottom: '10px',
 }
 
+const mobileTitle = {
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+}
+
 const loginLinkText = {
     fontFamily: 'Montserrat, sans-serif',
     fontSize: '1.5rem',
+    color: 'grey',
+    paddingBottom: '15px',
+}
+
+const mobileLoginLinkText = {
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1.2rem',
     color: 'grey',
     paddingBottom: '15px',
 }
@@ -111,9 +131,9 @@ const RegisterForm = () => {
             onSubmit={handleSubmit}>
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors || !passMatch ? 'error' : 'success'}>{feedbackMessage}</Alert>}
-            <Typography sx={title} variant="h6">Sign Up</Typography>
-            <Typography sx={loginLinkText} variant="body1">Already have an account? <Link style={link} href={PATH.LOGIN}>Login</Link></Typography>
-            <Typography sx={label}>Username</Typography>
+            <Typography sx={isMobile ? mobileTitle : title} variant="h6">Sign Up</Typography>
+            <Typography sx={isMobile ? mobileLoginLinkText : loginLinkText} variant="body1">Already have an account? <Link style={link} href={PATH.LOGIN}>Login</Link></Typography>
+            <Typography sx={isMobile ? mobileLabel : label}>Username</Typography>
             <TextField
                 error={formSubmitted && username.length === 0}
                 helperText={formSubmitted && username.length === 0 ? 'Field cannot be empty' : ''}
@@ -125,7 +145,7 @@ const RegisterForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <Typography sx={label}>Email</Typography>
+            <Typography sx={isMobile ? mobileLabel : label}>Email</Typography>
             <TextField
                 error={formSubmitted && email.length === 0}
                 helperText={formSubmitted && email.length === 0 ? 'Field cannot be empty' : ''}
@@ -138,7 +158,7 @@ const RegisterForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <Typography sx={label}>Password</Typography>
+            <Typography sx={isMobile ? mobileLabel : label}>Password</Typography>
             <TextField
                 error={formSubmitted && password.length === 0}
                 helperText={formSubmitted && password.length === 0 ? 'Field cannot be empty' : ''}
@@ -151,7 +171,7 @@ const RegisterForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <Typography sx={label}>Confirm Password</Typography>
+            <Typography sx={isMobile ? mobileLabel : label}>Confirm Password</Typography>
             <TextField
                 error={formSubmitted && confirmPassword.length === 0}
                 helperText={formSubmitted && confirmPassword.length === 0 ? 'Field cannot be empty' : ''}
