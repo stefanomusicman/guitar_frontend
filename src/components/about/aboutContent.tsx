@@ -35,8 +35,8 @@ const AbountContent = () => {
     const theme = useTheme();
     const isMobile: Boolean = useMediaQuery(theme.breakpoints.down('lg'));
     const containerWidth: string = isMobile ? '90%' : '45%';
-    const fontSize: string = isMobile ? '1rem' : '1.5rem';
-    const iconSize: string = isMobile ? '50px' : '75px';
+    const fontSize: string = isMobile ? '0.9rem' : '1.4rem';
+    const iconSize: string = isMobile ? '40px' : '75px';
 
     const text: React.ReactNode = (
         <span>
