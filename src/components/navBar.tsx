@@ -169,7 +169,7 @@ const MobileNavBar = () => {
                                 <Link href={PATH.ABOUT}><ListItemText primary="About" /></Link>
                             </ListItem>
                             <ListItem sx={mobileNavLinks} onClick={handleToggleDrawer}>
-                                <ListItemText primary="Contact" />
+                                <Link href={PATH.CONTACT}><ListItemText primary="Contact" /></Link>
                             </ListItem>
                             {isSignedIn ?
                                 <ListItem sx={mobileNavLinks} onClick={handleToggleDrawer}>
