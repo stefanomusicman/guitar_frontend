@@ -16,6 +16,12 @@ const label = {
     fontFamily: 'Montserrat, sans-serif',
 }
 
+const mobileLabel = {
+    marginBottom: '10px',
+    fontSize: '1.2rem',
+    fontFamily: 'Montserrat, sans-serif',
+}
+
 const textField = {
     width: '100%',
     paddingBottom: '20px',
@@ -41,9 +47,23 @@ const title = {
     marginBottom: '10px',
 }
 
+const mobileTitle = {
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+}
+
 const loginLinkText = {
     fontFamily: 'Montserrat, sans-serif',
     fontSize: '1.5rem',
+    color: 'grey',
+    paddingBottom: '15px',
+}
+
+const mobileLoginLinkText = {
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1.2rem',
     color: 'grey',
     paddingBottom: '15px',
 }
@@ -97,9 +117,9 @@ const ForgotPasswordForm = () => {
             onSubmit={handleSubmit}>
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
-            <Typography sx={title} variant="h6">Forgot Password</Typography>
-            <Typography sx={loginLinkText} variant="body1">Enter your email and we will send you a recovery email.</Typography>
-            <Typography sx={label}>Email</Typography>
+            <Typography sx={isMobile ? mobileTitle : title} variant="h6">Forgot Password</Typography>
+            <Typography sx={isMobile ? mobileLoginLinkText : loginLinkText} variant="body1">Enter your email and we will send you a recovery email.</Typography>
+            <Typography sx={isMobile ? mobileLabel : label}>Email</Typography>
             <TextField
                 error={formSubmitted && email.length === 0}
                 helperText={formSubmitted && email.length === 0 ? 'Field cannot be empty' : ''}
