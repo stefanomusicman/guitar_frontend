@@ -16,6 +16,12 @@ const label = {
     fontFamily: 'Montserrat, sans-serif',
 }
 
+const mobileLabel = {
+    marginBottom: '10px',
+    fontSize: '1.2rem',
+    fontFamily: 'Montserrat, sans-serif',
+}
+
 const textField = {
     width: '100%',
     paddingBottom: '20px',
@@ -36,9 +42,23 @@ const title = {
     marginBottom: '10px',
 }
 
+const mobileTitle = {
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+}
+
 const loginLinkText = {
     fontFamily: 'Montserrat, sans-serif',
     fontSize: '1.5rem',
+    color: 'grey',
+    paddingBottom: '15px',
+}
+
+const mobileLoginLinkText = {
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1.2rem',
     color: 'grey',
     paddingBottom: '15px',
 }
@@ -91,9 +111,9 @@ const ContactForm = () => {
             onSubmit={handleSubmit}>
             {loading && <CircularProgress />} {/* Show the loading spinner while registration is in progress */}
             {!loading && formSubmitted && <Alert sx={{ margin: 'auto' }} severity={errors ? 'error' : 'success'}>{feedbackMessage}</Alert>}
-            <Typography sx={title} variant="h6">Contact</Typography>
-            <Typography sx={loginLinkText} variant="body1">If you have any questions or suggestions, we&apos;d love to hear them!</Typography>
-            <Typography sx={label}>Email</Typography>
+            <Typography sx={isMobile ? mobileTitle : title} variant="h6">Contact</Typography>
+            <Typography sx={isMobile ? mobileLoginLinkText : loginLinkText} variant="body1">If you have any questions or suggestions, we&apos;d love to hear them!</Typography>
+            <Typography sx={isMobile ? mobileLabel : label}>Email</Typography>
             <TextField
                 error={formSubmitted && email.length === 0}
                 helperText={formSubmitted && email.length === 0 ? 'Field cannot be empty' : ''}
@@ -106,7 +126,7 @@ const ContactForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <Typography sx={label}>Name</Typography>
+            <Typography sx={isMobile ? mobileLabel : label}>Name</Typography>
             <TextField
                 error={formSubmitted && name.length === 0}
                 helperText={formSubmitted && name.length === 0 ? 'Field cannot be empty' : ''}
@@ -119,7 +139,7 @@ const ContactForm = () => {
                 variant="outlined"
                 InputProps={{ sx: { borderRadius: '10px' } }}
             />
-            <Typography sx={label}>Message</Typography>
+            <Typography sx={isMobile ? mobileLabel : label}>Message</Typography>
             <TextField
                 error={formSubmitted && message.length === 0}
                 helperText={formSubmitted && message.length === 0 ? 'Field cannot be empty' : ''}
